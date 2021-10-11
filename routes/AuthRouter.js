@@ -1,19 +1,26 @@
-const router = require('express').Router()
+const { Router } = require('express')
 const controller = require('../controllers/AuthController')
 const middleware = require('../middleware')
+const AuthRouter = Router()
 
-router.post('/login', controller.Login)
-router.post('/register', controller.Register)
-router.post(
+AuthRouter.post('/login', controller.Login)
+AuthRouter.post('/register', controller.Register)
+AuthRouter.put(
   '/update',
   middleware.stripToken,
   middleware.verifyToken,
   controller.UpdatePassword
 )
-router.get(
+AuthRouter.get(
   '/session',
   middleware.stripToken,
   middleware.verifyToken,
   controller.CheckSession
 )
-module.exports = router
+AuthRouter.post(
+  '/delete',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.DeleteUser
+)
+module.exports = AuthRouter
