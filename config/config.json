@@ -1,0 +1,17 @@
+{
+  "development": {
+    "database": "plantrade_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "database": "plantrade_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "database": "plantrade_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
