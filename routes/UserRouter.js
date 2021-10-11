@@ -4,4 +4,4 @@ const UserRouter = Router()
 
 // UserRouter.get('/all', controller.getAllRegions)
 
-module.exports = RegionRouter
+module.exports = UserRouter
