@@ -1,13 +1,16 @@
 <template>
   <div class="hello">
-    <img
-      src="https://plantrade.s3.us-east-2.amazonaws.com/b106aa11e1f8e5223c48c79b12147fef"
-      alt="asdadf"
-    />
     <h1>Hello</h1>
     <input type="file" accept="image/*" @change="handleFileChange" />
     <button @click="getUploadUrl">Get URL</button>
     <button @click="handleFileSend">Upload to S3</button>
+    <vs-input
+      dark
+      state="dark"
+      v-model="value5"
+      label="Dark"
+      placeholder="Evan You"
+    />
   </div>
 </template>
 
@@ -19,6 +22,7 @@ export default {
     msg: String,
   },
   data: () => ({
+    value5: "",
     file: null,
     fileName: "",
     filePreview: null,
@@ -47,8 +51,6 @@ export default {
       this.uploadUrl = res.data.uploadUrl;
     },
     async handleFileSend() {
-      // const formData = new FormData();
-      // formData.append("file", this.file);
       const res = await UploadToBucket(this.uploadUrl, this.file);
       console.log("res :>> ", res);
     },
