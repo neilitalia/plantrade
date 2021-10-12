@@ -4,6 +4,9 @@ const helmet = require("helmet");
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 const path = require('path')
+const dotenv = require('dotenv')
+dotenv.config()
+
 const AppRouter = require('./routes/AppRouter')
 
 const app = express()

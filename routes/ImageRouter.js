@@ -1,7 +1,7 @@
 const { Router } = require('express')
-// const controller = require('../controllers/UserController')
+const controller = require('../controllers/ImageController')
 const ImageRouter = Router()
 
-// UserRouter.get('/all', controller.getAllRegions)
+ImageRouter.get('/url', controller.GetUploadUrl)
 
 module.exports = ImageRouter
