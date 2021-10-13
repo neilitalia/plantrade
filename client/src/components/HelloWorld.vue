@@ -22,7 +22,6 @@ export default {
     msg: String,
   },
   data: () => ({
-    value5: "",
     file: null,
     fileName: "",
     filePreview: null,
