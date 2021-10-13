@@ -1,26 +1,13 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
-Vue.config.devtools = true
-
-export default new Vuex.Store({
+export default {
+  namespaced: true,
   state: {
     authenticated: false,
     user: null,
-    activePage: 'Home',
     username: '',
     password: '',
-    showPassword: false,
-    openAuthDialog: false
+    showPassword: false
   },
   mutations: {
-    setActivePage(state, payload) {
-      state.activePage = payload;
-    },
-    toggleAuthDialog(state) {
-      state.openAuthDialog = !state.openAuthDialog
-    },
     setUsername(state, payload){
       state.username = payload
     },
@@ -32,12 +19,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setActivePage({commit}, payload) {
-      commit('setActivePage', payload)
-    },
-    toggleAuthDialog({commit}){
-      commit('toggleAuthDialog')
-    },
     setUsername({commit}, payload){
       commit('setUsername', payload)
     },
@@ -48,8 +29,6 @@ export default new Vuex.Store({
       commit('toggleShowPassword')
     }
   },
-  getters: {
-    getActivePage: state => state.activePage
-  },
+  getters:{},
   modules: {}
-})
+}

@@ -6,16 +6,19 @@
     <main>
       <router-view></router-view>
     </main>
+    <AuthDialog />
   </div>
 </template>
 
 <script>
+import AuthDialog from "./components/AuthDialog";
 import NavBar from "./components/NavBar";
 
 export default {
   name: "App",
   components: {
     NavBar,
+    AuthDialog,
   },
 };
 </script>
@@ -37,10 +40,19 @@ button,
 input {
   font-family: "Poppins", sans-serif;
 }
+h1 {
+  color: #28164f;
+}
+a {
+  color: #28164f;
+}
 .mb-15 {
   margin-bottom: 15px;
 }
-.w-100--1c:first-child {
+.w-100 {
+  width: 100%;
+}
+.vs-input {
   width: 100%;
 }
 </style>

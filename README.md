@@ -55,6 +55,10 @@ Coming Soon
 
 </details>
 
+# 📢 Credits and Shoutouts
+
+- [Vuex dynamic module importing](https://www.youtube.com/watch?v=dGlTmR5DzP8)
+
 ## Future Updates
 
 Coming Soon
