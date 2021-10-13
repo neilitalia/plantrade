@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User, Cart, Listing } = require('../models')
 
 const GetAllUsers = async (req, res) => {
   try {
@@ -20,7 +20,8 @@ const GetUserById = async (req, res) => {
         exclude: ['password_digest']
       }
     })
-    res.send(user)
+    if(user) return res.send(user)
+    res.status(400).send({ error: 'No User Found' })
   } catch (error) {
     res.status(500).send({ error: error })
   }
@@ -34,7 +35,8 @@ const GetUserByUsername = async (req, res) => {
         exclude: ['password_digest']
       }
     })
-    res.send(user)
+    if(user) return res.send(user)
+    res.status(400).send({ error: 'No User Found' })
   } catch (error) {
     res.status(500).send({ error: error })
   }
@@ -55,9 +57,31 @@ const UpdateUser = async (req, res) => {
   }
 }
 
+const GetUserCartItems = async (req, res) => {
+  try {
+    const userCart = await User.findAll({
+      where: {id: req.params.user_id},
+      attributes: {exclude: ['password_digest']},
+      include: {
+        model: Cart,
+        as: 'cart_owner',
+        group: ['cart.name'],
+        include: {
+          model: Listing,
+          as: 'cart_listing'
+        }
+      }
+    });
+    return res.send(userCart)
+  } catch (error) {
+    res.status(500).send({ error: error })
+  }
+}
+
 module.exports = {
   GetAllUsers,
   GetUserById,
   GetUserByUsername,
-  UpdateUser
+  UpdateUser,
+  GetUserCartItems
 }

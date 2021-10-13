@@ -54,12 +54,6 @@ export default {
       showPassword: (state) => state.auth.showPassword,
       openAuthDialog: (state) => state.auth.openAuthDialog,
     }),
-    // ...mapGetters('auth', {
-    //   username: 'username',
-    //   password: 'password',
-    //   showPassword: 'showPassword',
-    //   openAuthDialog: 'openAuthDialog'
-    // })
   },
   methods: {
     ...mapActions("auth", [

@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         as: 'cart_owner',
         foreignKey: 'user_id'
       })
-      Cart.belongsTo(models.Listing, {
+      Cart.belongsToMany(models.Listing, {
+        through: models.CartListing,
         as: 'cart_listing',
         foreignKey: 'listing_id'
       })
@@ -23,14 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         model: 'users',
         key: 'id'
       }
-    },
-    listing_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'listings',
-        key: 'id'
-      }
-    },
+    }
   }, {
     sequelize,
     modelName: 'Cart',

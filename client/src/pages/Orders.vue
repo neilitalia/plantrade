@@ -3,10 +3,14 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "Orders",
   mounted() {
-    this.$store.dispatch("setActivePage", "Orders");
+    this.setActivePage("Orders");
+  },
+  methods: {
+    ...mapActions("navigation", ["setActivePage"]),
   },
 };
 </script>

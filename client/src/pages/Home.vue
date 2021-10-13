@@ -6,13 +6,16 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import Notification from "../components/Notification";
 export default {
   components: { Notification },
   name: "Home",
-  data: () => ({}),
   mounted() {
-    this.$store.dispatch("setActivePage", "Home");
+    this.setActivePage("Home");
+  },
+  methods: {
+    ...mapActions("navigation", ["setActivePage"]),
   },
 };
 </script>

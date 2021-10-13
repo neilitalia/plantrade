@@ -1,7 +1,11 @@
 const { Router } = require('express')
-// const controller = require('../controllers/UserController')
+const controller = require('../controllers/CartController')
 const CartRouter = Router()
 
-// UserRouter.get('/all', controller.getAllRegions)
+CartRouter.get('/all', controller.GetAllCarts)
+CartRouter.get('/id/:cart_id', controller.GetCartById)
+CartRouter.post('/new', controller.CreateNewCart)
+CartRouter.post('/add', controller.AddToCart)
+CartRouter.get('/fromuser/:user_id', controller.GetAllUserCarts)
 
 module.exports = CartRouter
