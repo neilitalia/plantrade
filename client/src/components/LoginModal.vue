@@ -44,13 +44,31 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
   name: "LoginModal",
-  data: () => ({
-    active: false,
-    email: "",
-    password: "",
-  }),
+  computed: {
+    ...mapState({
+      username: (state) => state.auth.username,
+      password: (state) => state.auth.password,
+      showPassword: (state) => state.auth.showPassword,
+      openAuthDialog: (state) => state.auth.openAuthDialog,
+    }),
+    // ...mapGetters('auth', {
+    //   username: 'username',
+    //   password: 'password',
+    //   showPassword: 'showPassword',
+    //   openAuthDialog: 'openAuthDialog'
+    // })
+  },
+  methods: {
+    ...mapActions("auth", [
+      "setUsername",
+      "setPassword",
+      "toggleShowPassword",
+      "toggleAuthDialog",
+    ]),
+  },
 };
 </script>
 

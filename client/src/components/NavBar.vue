@@ -33,9 +33,7 @@
           <router-link to="/profile"> Profile </router-link>
         </vs-navbar-item>
         <vs-navbar-item v-if="!$store.state.authenticated">
-          <vs-button @click="$store.dispatch('toggleAuthDialog')">
-            Get Started
-          </vs-button>
+          <vs-button @click="toggleAuthDialog"> Get Started </vs-button>
         </vs-navbar-item>
       </template>
     </vs-navbar>
@@ -43,9 +41,18 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
   name: "NavBar",
   components: {},
+  computed: {
+    ...mapState({
+      openAuthDialog: (state) => state.auth.openAuthDialog,
+    }),
+  },
+  methods: {
+    ...mapActions("auth", ["toggleAuthDialog"]),
+  },
 };
 </script>
 
