@@ -40,9 +40,12 @@ button,
 input {
   font-family: "Poppins", sans-serif;
 }
-h1 {
-  color: #28164f;
-}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 a {
   color: #28164f;
 }

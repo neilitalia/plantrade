@@ -6,8 +6,8 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     x="0px"
     y="0px"
-    width="603.745px"
-    height="596.732px"
+    :width="scale ? `${scale * 604}px` : '604px'"
+    :height="scale ? `${scale * 597}px` : '597px'"
     viewBox="0 0 603.745 596.732"
     enable-background="new 0 0 603.745 596.732"
     xml:space="preserve"
@@ -404,6 +404,7 @@
 <script>
 export default {
   name: "Person2",
+  props: ["scale"],
 };
 </script>
 
