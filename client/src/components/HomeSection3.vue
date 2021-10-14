@@ -80,8 +80,8 @@
         </vs-button>
       </vs-col>
       <vs-col vs-type="flex" vs-justify="space-around" vs-align="center" w="4">
-        <Plant7 :scale="2" />
         <Plant10 :scale="2.5" />
+        <Plant7 :scale="2" />
         <Plant8 :scale="2" />
       </vs-col>
     </vs-row>

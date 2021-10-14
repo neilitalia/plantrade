@@ -10,8 +10,8 @@
         vs-type="flex"
         vs-justify="center"
         vs-align="center"
-        offset="3"
-        w="6"
+        offset="2"
+        w="8"
       >
         <vs-input
           primary
@@ -26,20 +26,28 @@
       </vs-col>
     </vs-row>
     <vs-row>
-      <vs-col
-        vs-type="flex"
-        vs-justify="center"
-        vs-align="center"
-        offset="3"
-        w="6"
-      >
-        <div v-if="listings">
-          <h2>Most Recent:</h2>
-          <div v-for="listing in listings" :key="listing.id">
-            <ListingCard :listing="listing" />
-          </div>
-        </div>
-      </vs-col>
+      <vs-row>
+        <vs-col
+          vs-type="flex"
+          vs-justify="center"
+          vs-align="center"
+          offset="2"
+          w="8"
+          class="pt-15vh"
+        >
+          <vs-row>
+            <vs-col
+              v-for="listing in listings"
+              :key="listing.id"
+              vs-justify="center"
+              vs-align="center"
+              w="4"
+            >
+              <ListingCard :listing="listing" />
+            </vs-col>
+          </vs-row>
+        </vs-col>
+      </vs-row>
     </vs-row>
   </div>
 </template>
@@ -68,8 +76,7 @@ export default {
 
 <style>
 .listings-search-bar > * > input,
-label,
-span {
+label {
   height: 70px;
   font-size: 30px;
 }

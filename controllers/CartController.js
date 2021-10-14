@@ -1,5 +1,4 @@
 const { Cart, User, Listing } = require('../models')
-// const { Sequelize } = require("sequelize");
 
 const GetAllCarts = async (req, res) => {
   try {

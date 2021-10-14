@@ -55,6 +55,10 @@ h1 {
 .mb-25 {
   margin-bottom: 25px;
 }
+.plr-12 {
+  padding-left: 12px;
+  padding-right: 12px;
+}
 .mr-10vw {
   margin-right: 10vw;
 }
