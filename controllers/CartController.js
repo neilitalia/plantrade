@@ -53,12 +53,12 @@ const GetAllUserCarts = async (req, res) => {
         as: 'cart_owner'
       }
     });
-    
     return res.send(carts)
   } catch (error) {
     return res.status(500).send(error.message)
   }
 }
+
 
 module.exports = {
   GetAllCarts,

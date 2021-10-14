@@ -1,6 +1,6 @@
 <template>
   <div class="center">
-    <vs-navbar text-dark :color="active" fixed center-collapsed>
+    <vs-navbar text-dark shadow :color="active" fixed center-collapsed>
       <template #left>
         <img src="../assets/logo.png" alt="plantrade logo" height="60px" />
       </template>

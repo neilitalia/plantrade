@@ -58,6 +58,7 @@ Coming Soon
 # 📢 Credits and Shoutouts
 
 - [Vuex dynamic module importing](https://www.youtube.com/watch?v=dGlTmR5DzP8)
+- [Plant Illustrations](https://www.freepik.com/vectors/nature)
 
 ## Future Updates
 
