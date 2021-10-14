@@ -18,7 +18,7 @@ UserRouter.get(
 )
 
 UserRouter.get(
-  '/cart/:user_id',
+  '/cartsitems/:user_id',
   controller.GetUserCartItems
 )
 

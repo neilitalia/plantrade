@@ -68,7 +68,10 @@ const GetUserCartItems = async (req, res) => {
         group: ['cart.name'],
         include: {
           model: Listing,
-          as: 'cart_listing'
+          as: 'cart_listing',
+          through:{
+            attributes: []
+          }
         }
       }
     });

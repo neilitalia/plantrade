@@ -1,5 +1,5 @@
 const { Image } = require('../models')
-const { GenerateUploadUrl } = require('../s3')
+const { GenerateUploadUrl } = require('./S3')
 
 const GetUploadUrl = async (req, res) => {
   try {

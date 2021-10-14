@@ -1,9 +1,17 @@
-const { Cart, User } = require('../models')
+const { Cart, User, Listing } = require('../models')
 // const { Sequelize } = require("sequelize");
 
 const GetAllCarts = async (req, res) => {
   try {
-    const carts = await Cart.findAll()
+    const carts = await Cart.findAll({
+      include: [{
+        model: User,
+        as: 'user_cart',
+        attributes: {
+          exclude: ['password_digest']
+        }
+      }]
+    })
     return res.send(carts)
   } catch (error) {
     return res.status(500).send(error.message)

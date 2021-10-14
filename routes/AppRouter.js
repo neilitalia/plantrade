@@ -4,7 +4,6 @@ const UserRouter = require('./UserRouter')
 const ListingRouter = require('./ListingRouter')
 const CartRouter = require('./CartRouter')
 const ImageRouter = require('./ImageRouter')
-const CartListingRouter = require('./CartListingRouter')
 
 const AppRouter = Router()
 
@@ -17,7 +16,6 @@ AppRouter.use('/users', UserRouter)
 AppRouter.use('/listings', ListingRouter)
 AppRouter.use('/cart', CartRouter)
 AppRouter.use('/image', ImageRouter)
-AppRouter.use('/cartlisting', CartListingRouter)
 
 
 module.exports = AppRouter

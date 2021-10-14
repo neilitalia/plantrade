@@ -9,7 +9,11 @@ module.exports = (sequelize, DataTypes) => {
         as: 'listing_owner',
         foreignKey: 'user_id'
       })
-      Listing.belongsToMany(models.Cart, { through: models.CartListing, as: 'cart_listing'})
+      Listing.belongsToMany(models.Cart, {
+        through: models.CartListing,
+        as: 'cart_listing',
+        foreignKey: 'listing_id'
+      })
       Listing.hasMany(models.Image, {
         as: 'image_listing',
         foreignKey: 'listing_id'
