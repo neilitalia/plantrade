@@ -1,5 +1,5 @@
 <template>
-  <vs-card>
+  <vs-card class="mb-25">
     <template #title>
       <h3>Pot with a plant</h3>
     </template>
@@ -24,6 +24,7 @@
 <script>
 export default {
   name: "ListingCard",
+  props: ["listing"],
 };
 </script>
 
