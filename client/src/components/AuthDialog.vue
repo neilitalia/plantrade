@@ -1,12 +1,14 @@
 <template>
-  <vs-dialog blur auto-width v-model="openAuthDialog">
+  <vs-dialog blur auto-width v-model="$store.state.auth.openAuthDialog">
     <template #header>
-      <div @click="toggleAuthDialog">
+      <div>
         <h4 class="not-margin">Sign in to plantrade</h4>
       </div>
     </template>
     <div class="con-form">
       <vs-input
+        dark
+        state="dark"
         v-model="username"
         @change="setUsername"
         placeholder="Username"
@@ -15,6 +17,8 @@
         <template #icon> @ </template>
       </vs-input>
       <vs-input
+        dark
+        state="dark"
         type="password"
         v-model="password"
         @change="setPassword"
@@ -50,8 +54,36 @@ export default {
       username: (state) => state.auth.username,
       password: (state) => state.auth.password,
       showPassword: (state) => state.auth.showPassword,
-      openAuthDialog: (state) => state.auth.openAuthDialog,
+      loginStatus: (state) => state.auth.loginStatus,
     }),
+    openAuthDialog: {
+      get() {
+        return this.$store.state.auth.openAuthDialog;
+      },
+      set() {
+        this.$store.commit("toggleAuthDialog");
+      },
+    },
+  },
+  watch: {
+    loginStatus() {
+      if (this.loginStatus === "Success") {
+        this.$vs.notification({
+          progress: "auto",
+          color: "#97BC66",
+          position: "bottom-center",
+          title: "Login Success!",
+          text: "Happy browsing  :)",
+        });
+      } else if (this.loginStatus === "Failed") {
+        this.$vs.notification({
+          progress: "auto",
+          position: "bottom-center",
+          title: "Oops!",
+          text: "Invalid login, try again.",
+        });
+      }
+    },
   },
   methods: {
     ...mapActions("auth", [

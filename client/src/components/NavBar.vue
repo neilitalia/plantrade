@@ -33,7 +33,10 @@
           <router-link to="/profile"> Profile </router-link>
         </vs-navbar-item>
         <vs-navbar-item v-if="!authenticated">
-          <router-link to="/profile"> Get Started </router-link>
+          <router-link :to="{ path: '/', hash: '#register' }">
+            Get Started
+          </router-link>
+          <!-- <a href="#register"> Get Started </a> -->
         </vs-navbar-item>
         <vs-navbar-item v-if="!authenticated">
           <vs-button @click="toggleAuthDialog"> Log in </vs-button>
@@ -60,6 +63,12 @@ export default {
       authenticated: (state) => state.auth.authenticated,
     }),
   },
+  // TODO: Fix visual bug, navbar doesnt update on logout
+  // watch: {
+  //   authenticated() {
+  //     this.$forceUpdate();
+  //   },
+  // },
   methods: {
     ...mapActions("auth", ["toggleAuthDialog", "handleLogOut"]),
   },

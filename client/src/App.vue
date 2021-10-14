@@ -46,8 +46,17 @@ p {
   font-family: "Poppins", sans-serif;
   color: #28164f;
 }
+h1 {
+  font-size: 3.3em;
+}
 .mb-15 {
   margin-bottom: 15px;
+}
+.mb-25 {
+  margin-bottom: 25px;
+}
+.mr-10vw {
+  margin-right: 10vw;
 }
 .pb-15vh {
   padding-bottom: 15vh;
@@ -63,5 +72,8 @@ p {
 }
 .ul {
   text-decoration: underline;
+}
+.text-center {
+  text-align: center;
 }
 </style>

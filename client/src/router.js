@@ -6,6 +6,19 @@ import Orders from './pages/Orders'
 import Checkout from './pages/Checkout'
 import store from './store'
 
+const scrollBehavior = (to, from, savedPosition) => {
+  if (savedPosition) {
+    return savedPosition
+  } else if (to.hash) {
+    return {
+      selector: to.hash,
+      behavior: 'smooth',
+    }
+  } else {
+    return { x: 0, y: 0 }
+  }
+}
+
 const routes = [
   { path: '/', component: Home, name: 'Home' },
   { path: '/listings', component: Listings, name: 'Listings'},
@@ -14,7 +27,7 @@ const routes = [
   { path: '/checkout', component: Checkout, name: 'Checkout', meta: { auth: true }}
 ]
 
-const router = new VueRouter({ routes, mode: 'history' })
+const router = new VueRouter({ routes, mode: 'history', scrollBehavior })
 
 router.beforeEach((to, from, next)=>{
   if(

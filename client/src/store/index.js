@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import auth from './modules/auth'
 import navigation from './modules/navigation'
 import stripe from './modules/stripe'
+import registration from './modules/registration'
 
 Vue.use(Vuex)
 
@@ -13,7 +14,8 @@ export default new Vuex.Store({
   modules: {
     auth,
     navigation,
-    stripe
+    stripe,
+    registration
   },
   strict: debug
 })

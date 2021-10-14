@@ -6,7 +6,8 @@ const state = () => ({
   username: '',
   password: '',
   showPassword: false,
-  openAuthDialog: false
+  openAuthDialog: false,
+  loginStatus: null
 })
 
 const mutations = {
@@ -26,6 +27,9 @@ const mutations = {
     state.user = payload
   },
   setAuthenticated(state, payload){
+    state.authenticated = payload
+  },
+  setLoginStatus(state, payload){
     state.authenticated = payload
   }
 }
@@ -58,11 +62,14 @@ const actions = {
       commit('toggleAuthDialog')
       commit('setUsername', '')
       commit('setPassword', '')
+      commit('setLoginStatus', 'Success')
       localStorage.setItem('token', res.data.token)
       localStorage.setItem('userId', res.data.user.id)
       localStorage.setItem('userEmail', res.data.user.email)
       localStorage.setItem('username', res.data.user.username)
-    }
+    } else (
+      commit('setLoginStatus', 'Failed')
+    )
   },
   handleLogOut({commit}){
     commit('setUser', null)
@@ -87,40 +94,3 @@ export default {
   actions,
   mutations
 }
-
-
-
-// export default {
-//   namespaced: true,
-//   state: {
-//     authenticated: false,
-//     user: null,
-//     username: '',
-//     password: '',
-//     showPassword: false
-//   },
-//   mutations: {
-//     setUsername(state, payload){
-//       state.username = payload
-//     },
-//     setPassword(state, payload){
-//       state.password = payload
-//     },
-//     toggleShowPassword(state){
-//       state.showPassword = !state.showPassword
-//     }
-//   },
-//   actions: {
-//     setUsername({commit}, payload){
-//       commit('setUsername', payload)
-//     },
-//     setPassword({commit}, payload){
-//       commit('setPassword', payload)
-//     },
-//     toggleShowPassword({commit}){
-//       commit('toggleShowPassword')
-//     }
-//   },
-//   getters:{},
-//   modules: {}
-// }
