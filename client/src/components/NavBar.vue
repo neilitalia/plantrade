@@ -1,8 +1,17 @@
 <template>
   <div class="center">
-    <vs-navbar text-dark shadow :color="active" fixed center-collapsed>
+    <vs-navbar
+      text-dark
+      shadow
+      shadowScroll
+      :color="active"
+      fixed
+      center-collapsed
+    >
       <template #left>
-        <img src="../assets/logo.png" alt="plantrade logo" height="60px" />
+        <router-link to="/">
+          <img src="../assets/logo.png" alt="plantrade logo" height="60px" />
+        </router-link>
       </template>
       <template #right>
         <vs-navbar-item :active="activePage === 'Home'">
@@ -24,7 +33,10 @@
           <router-link to="/profile"> Profile </router-link>
         </vs-navbar-item>
         <vs-navbar-item v-if="!authenticated">
-          <vs-button @click="toggleAuthDialog"> Get Started </vs-button>
+          <vs-button @click="toggleAuthDialog"> Log in </vs-button>
+        </vs-navbar-item>
+        <vs-navbar-item v-if="!authenticated">
+          <vs-button border @click="toggleAuthDialog"> Get Started </vs-button>
         </vs-navbar-item>
         <vs-navbar-item v-if="authenticated">
           <vs-button transparent @click="handleLogOut"> Log out </vs-button>

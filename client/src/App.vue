@@ -26,8 +26,6 @@ export default {
 <style>
 body {
   margin: 0;
-}
-#app {
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -45,11 +43,18 @@ h3,
 h4,
 h5,
 h6,
-a {
+a,
+p {
   color: #28164f;
 }
 .mb-15 {
   margin-bottom: 15px;
+}
+.pb-15vh {
+  padding-bottom: 15vh;
+}
+.pt-15vh {
+  padding-top: 15vh;
 }
 .w-100 {
   width: 100%;
