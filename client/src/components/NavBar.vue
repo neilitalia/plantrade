@@ -33,10 +33,10 @@
           <router-link to="/profile"> Profile </router-link>
         </vs-navbar-item>
         <vs-navbar-item v-if="!authenticated">
-          <vs-button @click="toggleAuthDialog"> Log in </vs-button>
+          <router-link to="/profile"> Get Started </router-link>
         </vs-navbar-item>
         <vs-navbar-item v-if="!authenticated">
-          <vs-button border @click="toggleAuthDialog"> Get Started </vs-button>
+          <vs-button @click="toggleAuthDialog"> Log in </vs-button>
         </vs-navbar-item>
         <vs-navbar-item v-if="authenticated">
           <vs-button transparent @click="handleLogOut"> Log out </vs-button>

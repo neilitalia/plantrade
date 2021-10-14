@@ -34,9 +34,7 @@ body {
   min-height: 100vh;
 }
 button,
-input {
-  font-family: "Poppins", sans-serif;
-}
+input,
 h1,
 h2,
 h3,
@@ -45,6 +43,7 @@ h5,
 h6,
 a,
 p {
+  font-family: "Poppins", sans-serif;
   color: #28164f;
 }
 .mb-15 {
@@ -61,5 +60,8 @@ p {
 }
 .vs-input {
   width: 100%;
+}
+.ul {
+  text-decoration: underline;
 }
 </style>
