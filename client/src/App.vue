@@ -31,7 +31,6 @@ body {
   font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   padding-top: 80px;
   background-color: #f6ddd4;
   min-height: 100vh;

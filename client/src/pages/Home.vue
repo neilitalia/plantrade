@@ -5,13 +5,13 @@
         <h1 class="welcome">Welcome to plantrade!</h1>
       </vs-col>
     </vs-row>
-    <vs-row justify="space-around">
-      <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
-        <Plant1 :scale="0.5" />
-        <Person2 :scale="0.5" />
-        <Plant4 :scale="0.5" />
+    <vs-row justify="center">
+      <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="5">
+        <Plant1 :scale="0.7" />
+        <Person2 :scale="0.7" />
+        <Plant4 :scale="0.7" />
       </vs-col>
-      <vs-col vs-type="flex" vs-align="center" w="3">
+      <vs-col vs-type="flex" vs-align="center" w="4">
         <h2>Find the hottest deals on houseplants</h2>
       </vs-col>
     </vs-row>
@@ -40,7 +40,8 @@ export default {
 </script>
 
 <style>
-.welcome {
+h1.welcome {
   font-size: 3rem;
+  text-align: center;
 }
 </style>
