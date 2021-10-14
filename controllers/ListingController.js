@@ -1,8 +1,12 @@
 const { Listing } = require('../models')
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const GetAllListings = async (req, res) => {
   try {
-    const listings = await Listing.findAll()
+    const listings = await Listing.findAll({
+      order: [['updatedAt', 'DESC']]
+    })
     return res.send(listings)
   } catch (error) {
     return res.status(500).send(error.message)
@@ -77,11 +81,30 @@ const DeleteListing = async (req, res) => {
   }
 }
 
+const SearchForListing = async (req, res) => {
+  try {
+    const query = req.body.query
+    const results = await Listing.findAll({
+      where: {
+        [Op.or]: [
+          { title: { [Op.iLike]: `%${query}%` } },
+          { plant: { [Op.iLike]: `%${query}%` } },
+          { description: { [Op.iLike]: `%${query}%` } }
+        ]
+      }
+    })
+    return res.send(results)
+  } catch (error) {
+    return res.status(500).send({ error: error })
+  }
+}
+
 module.exports = {
   GetAllListings,
   GetListingById,
   CreateListing,
   UpdateListing,
   ArchiveListing,
-  DeleteListing
+  DeleteListing,
+  SearchForListing
 }

@@ -20,6 +20,13 @@ ListingRouter.post(
   controller.CreateListing
 )
 
+ListingRouter.post(
+  '/search', 
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.SearchForListing
+)
+
 ListingRouter.put(
   '/archive/:listing_id', 
   middleware.stripToken,

@@ -4,6 +4,7 @@ import auth from './modules/auth'
 import navigation from './modules/navigation'
 import stripe from './modules/stripe'
 import registration from './modules/registration'
+import listings from './modules/listings'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,8 @@ export default new Vuex.Store({
     auth,
     navigation,
     stripe,
-    registration
+    registration,
+    listings
   },
   strict: debug
 })
