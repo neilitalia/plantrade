@@ -1,4 +1,4 @@
-import {Login} from '../../services/AuthServices'
+import {Login, CheckSession} from '../../services/AuthServices'
 
 const state = () => ({
   authenticated: false,
@@ -64,12 +64,21 @@ const actions = {
       commit('setPassword', '')
       commit('setLoginStatus', 'Success')
       localStorage.setItem('token', res.data.token)
+      localStorage.setItem('authenticated', true)
       localStorage.setItem('userId', res.data.user.id)
       localStorage.setItem('userEmail', res.data.user.email)
       localStorage.setItem('username', res.data.user.username)
     } else (
       commit('setLoginStatus', 'Failed')
     )
+  },
+  async checkSession({commit}){
+    const res = await CheckSession()
+    if(res.status ===200){
+      commit('setUser', res.data)
+      commit('setAuthenticated', true)
+      localStorage.setItem('authenticated', true)
+    }
   },
   handleLogOut({commit}){
     commit('setUser', null)

@@ -10,4 +10,11 @@ ImageRouter.get(
   controller.GetUploadUrl
 )
 
+ImageRouter.post(
+  '/add',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.AddImageToListing
+)
+
 module.exports = ImageRouter

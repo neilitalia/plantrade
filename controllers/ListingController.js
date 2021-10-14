@@ -1,10 +1,14 @@
-const { Listing } = require('../models')
+const { Listing, Image } = require('../models')
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 const GetAllListings = async (req, res) => {
   try {
     const listings = await Listing.findAll({
+      include: {
+        model: Image,
+        as: 'image_listing'
+      },
       order: [['updatedAt', 'DESC']]
     })
     return res.send(listings)

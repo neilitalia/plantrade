@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import AuthDialog from "./components/AuthDialog";
 import NavBar from "./components/NavBar";
 
@@ -19,6 +20,12 @@ export default {
   components: {
     NavBar,
     AuthDialog,
+  },
+  methods: {
+    ...mapActions("auth", ["checkSession"]),
+  },
+  mounted() {
+    this.checkSession();
   },
 };
 </script>

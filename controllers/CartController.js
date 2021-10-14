@@ -5,7 +5,7 @@ const GetAllCarts = async (req, res) => {
     const carts = await Cart.findAll({
       include: [{
         model: User,
-        as: 'user_cart',
+        as: 'cart_owner',
         attributes: {
           exclude: ['password_digest']
         }
