@@ -36,7 +36,7 @@ const Register = async (req, res) => {
     let password_digest = await middleware.hashPassword(password)
     const user = await User.create({ username, password_digest, email,  mobile, location_latitude, location_longitude })
     if(user){
-      const cart = await Cart.create({name: "Cart", user_id: user.id})
+      const cart = await Cart.bulkCreate([{name: "Cart", user_id: user.id}, {name: "Wishlist", user_id: user.id}])
       res.send({ username: user.username, email: user.email, cart: cart })
     }
     return res.status(401).send({ status: 'Error', msg: 'Unauthorized' })

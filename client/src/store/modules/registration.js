@@ -95,7 +95,6 @@ const actions = {
       longitude: state.longitude
     }
     const res = await RegisterUser(payload)
-    console.log('res :>> ', res);
     if(res.status === 200){
       commit('setRegisterStatus', 'Success')
     } else {

@@ -19,11 +19,20 @@
         w="8"
       >
         <h2>List: {{ cart.name }}</h2>
-        <vs-card-group>
-          <div v-for="listing in cart.cart_listing" :key="listing.id">
-            <ListingCard :listing="listing" :removable="true" :cart="cart.id" />
-          </div>
-        </vs-card-group>
+        <div v-if="!cart.cart_listing.length">
+          <h2>Your cart is lonely :( No items yet</h2>
+        </div>
+        <div v-else>
+          <vs-card-group>
+            <div v-for="listing in cart.cart_listing" :key="listing.id">
+              <ListingCard
+                :listing="listing"
+                :removable="true"
+                :cart="cart.id"
+              />
+            </div>
+          </vs-card-group>
+        </div>
       </vs-col>
     </vs-row>
   </div>

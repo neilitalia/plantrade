@@ -57,7 +57,7 @@
               <vs-button
                 primary
                 icon
-                :disabled="!authenticated"
+                :disabled="!authenticated || !selectedCartID"
                 @click="handleAddToCart"
               >
                 <i class="bx bx-cart"></i>
