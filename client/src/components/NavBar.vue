@@ -1,41 +1,44 @@
 <template>
   <div class="center">
-    <vs-navbar
-      text-dark
-      shadow
-      shadowScroll
-      :color="active"
-      fixed
-      center-collapsed
-    >
+    <vs-navbar shadow shadowScroll :color="active" fixed center-collapsed>
       <template #left>
-        <router-link to="/">
-          <img src="../assets/logo.png" alt="plantrade logo" height="60px" />
-        </router-link>
+        <vs-navbar-item to="/">
+          <img src="../assets/logo.png" alt="plantrade logo" height="40px" />
+        </vs-navbar-item>
       </template>
       <template #right>
-        <vs-navbar-item :active="activePage === 'Home'">
-          <router-link to="/"> Home </router-link>
+        <vs-navbar-item to="/" :active="activePage === 'Home'">
+          Home
         </vs-navbar-item>
-        <vs-navbar-item :active="activePage === 'Listings'">
-          <router-link to="/listings"> Listings </router-link>
-        </vs-navbar-item>
-        <vs-navbar-item :active="activePage === 'Cart'" v-if="authenticated">
-          <router-link to="/cart"> Cart </router-link>
+        <vs-navbar-item to="/listings" :active="activePage === 'Listings'">
+          Listings
         </vs-navbar-item>
         <vs-navbar-item
+          to="/cart"
+          :active="activePage === 'Cart'"
+          v-if="authenticated"
+        >
+          Cart
+        </vs-navbar-item>
+        <vs-navbar-item
+          to="/checkout"
           :active="activePage === 'Checkout'"
           v-if="authenticated"
         >
-          <router-link to="/checkout"> Checkout </router-link>
+          Checkout
         </vs-navbar-item>
-        <vs-navbar-item :active="activePage === 'Profile'" v-if="authenticated">
-          <router-link to="/profile"> Profile </router-link>
+        <vs-navbar-item
+          to="/profile"
+          :active="activePage === 'Profile'"
+          v-if="authenticated"
+        >
+          Profile
         </vs-navbar-item>
-        <vs-navbar-item v-if="!authenticated">
-          <router-link :to="{ path: '/', hash: '#register' }">
-            Get Started
-          </router-link>
+        <vs-navbar-item
+          :to="{ path: '/', hash: '#register' }"
+          v-if="!authenticated"
+        >
+          Get Started
         </vs-navbar-item>
         <vs-navbar-item v-if="!authenticated">
           <vs-button @click="toggleAuthDialog"> Log in </vs-button>

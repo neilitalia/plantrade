@@ -59,6 +59,7 @@ Coming Soon
 
 - [Vuex dynamic module importing](https://www.youtube.com/watch?v=dGlTmR5DzP8)
 - [Plant Illustrations](https://www.freepik.com/vectors/nature)
+- [Vue Route Animations](https://router.vuejs.org/guide/advanced/transitions.html#per-route-transition)
 
 ## Future Updates
 

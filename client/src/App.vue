@@ -4,7 +4,9 @@
       <NavBar />
     </header>
     <main>
-      <router-view></router-view>
+      <transition name="fade">
+        <router-view class="view" />
+      </transition>
     </main>
     <AuthDialog v-if="!authenticated" />
   </div>
@@ -94,5 +96,19 @@ h1 {
 }
 .text-right {
   text-align: right;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+.view {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  transition: all 0.3s ease-in-out;
 }
 </style>

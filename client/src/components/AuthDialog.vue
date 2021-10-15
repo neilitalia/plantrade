@@ -24,6 +24,7 @@
         @change="setPassword"
         placeholder="Password"
         class="mb-15"
+        v-on:keyup.enter="handleLogin"
       >
         <template #icon>
           <i class="bx bxs-lock" />
