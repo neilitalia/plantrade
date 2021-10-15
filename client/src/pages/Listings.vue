@@ -18,6 +18,7 @@
           state="primary"
           v-model="searchQuery"
           @change="setSearchQuery"
+          v-on:keyup.enter="getListingsFromSearch(searchQuery)"
           class="listings-search-bar"
         >
         </vs-input>

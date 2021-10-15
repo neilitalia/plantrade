@@ -1,4 +1,4 @@
-const { User, Cart, Listing } = require('../models')
+const { User, Cart, Listing, Image } = require('../models')
 
 const GetAllUsers = async (req, res) => {
   try {
@@ -59,7 +59,7 @@ const UpdateUser = async (req, res) => {
 
 const GetUserCartItems = async (req, res) => {
   try {
-    const userCart = await User.findAll({
+    const userCart = await User.findOne({
       where: {id: req.params.user_id},
       attributes: {exclude: ['password_digest']},
       include: {
@@ -71,6 +71,10 @@ const GetUserCartItems = async (req, res) => {
           as: 'cart_listing',
           through:{
             attributes: []
+          },
+          include: {
+            model: Image,
+            as: 'image_listing'
           }
         }
       }

@@ -10,7 +10,7 @@ const state = () => ({
 
 const mutations = {
   setListings(state, payload) {
-    state.listings = [...payload];
+    state.listings = payload;
   },
   addToListings(state, payload){
     state.listings = [...state.listings, payload];
