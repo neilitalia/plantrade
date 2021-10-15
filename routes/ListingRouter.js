@@ -18,13 +18,13 @@ ListingRouter.post(
   controller.SearchForListing
 )
 
-
 ListingRouter.post(
   '/new', 
   middleware.stripToken,
   middleware.verifyToken,
   controller.CreateListing
 )
+
 ListingRouter.put(
   '/archive/:listing_id', 
   middleware.stripToken,

@@ -19,6 +19,8 @@ UserRouter.get(
 
 UserRouter.get(
   '/cartsitems/:user_id',
+  middleware.stripToken,
+  middleware.verifyToken,
   controller.GetUserCartItems
 )
 

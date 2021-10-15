@@ -1,12 +1,41 @@
 const { Router } = require('express')
 const controller = require('../controllers/CartController')
+const middleware = require('../middleware')
 const CartRouter = Router()
 
-CartRouter.get('/all', controller.GetAllCarts)
-CartRouter.get('/id/:cart_id', controller.GetCartById)
-CartRouter.post('/new', controller.CreateNewCart)
-CartRouter.post('/add', controller.AddToCart)
-CartRouter.get('/fromuser/:user_id', controller.GetAllUserCarts)
-CartRouter.post('/checkout')
+CartRouter.get(
+  '/all',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.GetAllCarts
+)
+
+CartRouter.get(
+  '/id/:cart_id',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.GetCartById
+)
+
+CartRouter.post(
+  '/new',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.CreateNewCart
+)
+
+CartRouter.post(
+  '/add',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.AddToCart
+)
+
+CartRouter.get(
+  '/fromuser/:user_id',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.GetAllUserCarts
+)
 
 module.exports = CartRouter
