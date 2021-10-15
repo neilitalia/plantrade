@@ -11,18 +11,21 @@
         vs-justify="center"
         vs-align="center"
         offset="2"
-        w="8"
+        w="7"
       >
         <vs-input
           primary
           state="primary"
-          v-model="value1"
+          v-model="searchQuery"
+          @change="setSearchQuery"
           class="listings-search-bar"
         >
-          <template #icon>
-            <i class="bx bx-search-alt"></i>
-          </template>
         </vs-input>
+      </vs-col>
+      <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="1">
+        <vs-button size="xl" @click="active = 0">
+          <i class="bx bx-search-alt" />&nbsp;&nbsp;Search
+        </vs-button>
       </vs-col>
     </vs-row>
     <vs-row>
@@ -49,14 +52,16 @@
         </vs-col>
       </vs-row>
     </vs-row>
+    <ListingDialog />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
-import ListingCard from "../components/ListingCard.vue";
+import ListingCard from "../components/ListingCard";
+import ListingDialog from "../components/ListingDialog";
 export default {
-  components: { ListingCard },
+  components: { ListingCard, ListingDialog },
   name: "Listings",
   mounted() {
     this.setActivePage("Listings");
@@ -65,11 +70,12 @@ export default {
   computed: {
     ...mapState({
       listings: (state) => state.listings.listings,
+      searchQuery: (state) => state.listings.searchQuery,
     }),
   },
   methods: {
     ...mapActions("navigation", ["setActivePage"]),
-    ...mapActions("listings", ["getRecentListings"]),
+    ...mapActions("listings", ["getRecentListings", "setSearchQuery"]),
   },
 };
 </script>

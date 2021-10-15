@@ -29,10 +29,6 @@
           <i class="bx bxs-lock" />
         </template>
       </vs-input>
-      <div class="flex">
-        <vs-checkbox v-model="remember">Remember me</vs-checkbox>
-        <a href="#">Forgot Password?</a>
-      </div>
     </div>
 
     <template #footer>
@@ -56,14 +52,6 @@ export default {
       showPassword: (state) => state.auth.showPassword,
       loginStatus: (state) => state.auth.loginStatus,
     }),
-    openAuthDialog: {
-      get() {
-        return this.$store.state.auth.openAuthDialog;
-      },
-      set() {
-        this.$store.commit("toggleAuthDialog");
-      },
-    },
   },
   watch: {
     loginStatus() {
@@ -74,6 +62,9 @@ export default {
           position: "bottom-center",
           title: "Login Success!",
           text: "Happy browsing  :)",
+          onDestroy: () => {
+            this.setLoginStatus(null);
+          },
         });
       } else if (this.loginStatus === "Failed") {
         this.$vs.notification({
@@ -81,6 +72,9 @@ export default {
           position: "bottom-center",
           title: "Oops!",
           text: "Invalid login, try again.",
+          onDestroy: () => {
+            this.setLoginStatus(null);
+          },
         });
       }
     },
@@ -92,14 +86,8 @@ export default {
       "toggleShowPassword",
       "toggleAuthDialog",
       "handleLogin",
+      "setLoginStatus",
     ]),
-    openNotification() {
-      this.$vs.notification({
-        title: "Oops! Something went wrong.",
-        text: `These documents refer to the latest version of vuesax (4.0+),
-        to see the documents of the previous versions you can do it here 👉 Vuesax3.x`,
-      });
-    },
   },
 };
 </script>

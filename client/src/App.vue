@@ -87,4 +87,7 @@ h1 {
 .text-center {
   text-align: center;
 }
+.text-right {
+  text-align: right;
+}
 </style>

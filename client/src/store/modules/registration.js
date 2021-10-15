@@ -72,6 +72,9 @@ const actions = {
   toggleShowPassword({commit}){
     commit('toggleShowPassword')
   },
+  setRegisterStatus({commit}, payload){
+    commit('setRegisterStatus', payload)
+  },
   async handleRegister({state, commit}){
     const payload = {
       username: state.username,

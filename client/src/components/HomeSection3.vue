@@ -126,6 +126,9 @@ export default {
           position: "bottom-center",
           title: "Registration Success!",
           text: "We successfully created your account. You can try logging in now.",
+          onDestroy: () => {
+            this.setRegisterStatus(null);
+          },
         });
       } else if (this.registerStatus === "Failed") {
         this.$vs.notification({
@@ -133,6 +136,9 @@ export default {
           position: "bottom-center",
           title: "Oops!",
           text: "Something went wrong. Try again in a few minutes.",
+          onDestroy: () => {
+            this.setRegisterStatus(null);
+          },
         });
       }
     },
@@ -148,6 +154,7 @@ export default {
       "setLatitude",
       "setLongitude",
       "handleRegister",
+      "setRegisterStatus",
     ]),
     validateEmail(e) {
       const regex =

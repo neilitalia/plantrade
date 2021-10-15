@@ -1,4 +1,4 @@
-const { Listing, Image } = require('../models')
+const { Listing, Image, User } = require('../models')
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -9,7 +9,22 @@ const GetAllListings = async (req, res) => {
         model: Image,
         as: 'image_listing'
       },
-      order: [['updatedAt', 'DESC']]
+      order: [['createdAt', 'DESC']]
+    })
+    return res.send(listings)
+  } catch (error) {
+    return res.status(500).send(error.message)
+  }
+}
+
+const GetPopularListings = async (req, res) => {
+  try {
+    const listings = await Listing.findAll({
+      include: {
+        model: Image,
+        as: 'image_listing'
+      },
+      order: [['views', 'DESC']]
     })
     return res.send(listings)
   } catch (error) {
@@ -19,7 +34,20 @@ const GetAllListings = async (req, res) => {
 
 const GetListingById = async (req, res) => {
   try {
-    const listing = await Listing.findByPk(req.params.listing_id)
+    const listing = await Listing.findOne({
+      where : { id: req.params.listing_id },
+      include: [{
+        model: User,
+        as: 'listing_owner',
+        attributes: {
+          exclude: ['password_digest']
+        }
+      },{
+        model: Image,
+        as: 'image_listing'
+      }]
+    })
+    // const listing = await Listing.findByPk(req.params.listing_id)
     if(listing){
       Listing.increment(
         { views: +1 },
@@ -27,6 +55,7 @@ const GetListingById = async (req, res) => {
       )
       return res.send(listing)
     }
+    return res.status(400).send({ error: 'No Listing Found' })
   } catch (error) {
     return res.status(500).send({ error: error })
   }
@@ -105,6 +134,7 @@ const SearchForListing = async (req, res) => {
 
 module.exports = {
   GetAllListings,
+  GetPopularListings,
   GetListingById,
   CreateListing,
   UpdateListing,

@@ -30,7 +30,7 @@ const mutations = {
     state.authenticated = payload
   },
   setLoginStatus(state, payload){
-    state.authenticated = payload
+    state.loginStatus = payload
   }
 }
 
@@ -49,6 +49,9 @@ const actions = {
   toggleAuthDialog({commit}){
     commit('toggleAuthDialog')
   },
+  setLoginStatus({commit}, payload){
+    commit('setLoginStatus', payload)
+  },
   async handleLogin({state, commit}){
     const payload = {
       username: state.username,
@@ -59,18 +62,18 @@ const actions = {
     if( res.status === 200 ){
       commit('setUser', res.data.user)
       commit('setAuthenticated', true)
+      commit('setLoginStatus', 'Success')
       commit('toggleAuthDialog')
       commit('setUsername', '')
       commit('setPassword', '')
-      commit('setLoginStatus', 'Success')
       localStorage.setItem('token', res.data.token)
       localStorage.setItem('authenticated', true)
       localStorage.setItem('userId', res.data.user.id)
       localStorage.setItem('userEmail', res.data.user.email)
       localStorage.setItem('username', res.data.user.username)
-    } else (
+    } else {
       commit('setLoginStatus', 'Failed')
-    )
+    }
   },
   async checkSession({commit}){
     const res = await CheckSession()

@@ -1,5 +1,8 @@
 <template>
-  <vs-card class="mb-25 plr-12">
+  <vs-card
+    class="mb-25 plr-12"
+    @click="setSelectedListing(listing.id), getListingDetails(listing.id)"
+  >
     <template #title>
       <h3>{{ listing.title }}</h3>
     </template>
@@ -19,8 +22,9 @@
       <p>{{ listing.description }}</p>
     </template>
     <template #interactions>
-      <vs-button danger icon>
-        <i class="bx bx-heart"></i>
+      <vs-button success icon>
+        <i class="bx bx-dollar"></i>
+        <span class="span">{{ listing.price }}</span>
       </vs-button>
       <vs-button class="btn-chat" shadow primary>
         <i class="bx bx-show"></i>
@@ -31,6 +35,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { AWS_BASE_URL } from "../globals";
 export default {
   name: "ListingCard",
@@ -38,6 +43,9 @@ export default {
   data: () => ({
     awsBaseUrl: AWS_BASE_URL,
   }),
+  methods: {
+    ...mapActions("listings", ["setSelectedListing", "getListingDetails"]),
+  },
 };
 </script>
 
