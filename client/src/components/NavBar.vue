@@ -65,18 +65,6 @@ export default {
       authenticated: (state) => state.auth.authenticated,
     }),
   },
-  watch: {
-    authenticated() {
-      if (this.authenticated === false) {
-        this.$vs.notification({
-          progress: "auto",
-          color: "#97BC66",
-          position: "bottom-center",
-          title: "See you later!",
-        });
-      }
-    },
-  },
   methods: {
     ...mapActions("auth", ["toggleAuthDialog", "handleLogOut"]),
   },

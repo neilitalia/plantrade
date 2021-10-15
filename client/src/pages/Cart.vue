@@ -5,6 +5,11 @@
         <h1 class="text-center">Your Items</h1>
       </vs-col>
     </vs-row>
+    <vs-row v-if="!userCarts.cart_owner.length">
+      <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
+        <h3 class="text-center">No items yet...</h3>
+      </vs-col>
+    </vs-row>
     <vs-row v-for="cart in userCarts.cart_owner" :key="cart.id">
       <vs-col
         vs-type="flex"

@@ -22,9 +22,9 @@ const Login = async (req, res) => {
       let token = middleware.createToken(payload)
       return res.send({ user: payload, token })
     }
-    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
+    return res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   } catch (error) {
-    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
+    return res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   }
 }
 
@@ -35,9 +35,13 @@ const Register = async (req, res) => {
     let location_longitude = parseFloat(longitude)
     let password_digest = await middleware.hashPassword(password)
     const user = await User.create({ username, password_digest, email,  mobile, location_latitude, location_longitude })
-    res.send({ username: user.username, email: user.email })
+    if(user){
+      
+      res.send({ username: user.username, email: user.email })
+    }
+    return res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   } catch (error) {
-    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
+    return res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   }
 }
 
@@ -62,9 +66,9 @@ const UpdatePassword = async (req, res) => {
       )
       return res.send({ status: 'Password Updated', payload: req.body, updated: newUser[0] })
     }
-    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
+    return res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   } catch (error) {
-    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
+    return res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   }
 }
 
@@ -88,15 +92,15 @@ const DeleteUser = async (req, res) => {
       )
       return res.send({ status: 'Account Deleted', payload: req.body, deleted: deletedUser })
     }
-    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
+    return res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   } catch (error) {
-    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
+    return res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   }
 }
 
 const CheckSession = async (req, res) => {
   const { payload } = res.locals
-  res.send(payload)
+  return res.send(payload)
 }
 
 module.exports = {

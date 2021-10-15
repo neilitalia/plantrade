@@ -51,34 +51,7 @@ export default {
       username: (state) => state.auth.username,
       password: (state) => state.auth.password,
       showPassword: (state) => state.auth.showPassword,
-      loginStatus: (state) => state.auth.loginStatus,
     }),
-  },
-  watch: {
-    loginStatus() {
-      if (this.loginStatus === "Success") {
-        this.$vs.notification({
-          progress: "auto",
-          color: "#97BC66",
-          position: "bottom-center",
-          title: "Login Success!",
-          text: "Happy browsing  :)",
-          onDestroy: () => {
-            this.setLoginStatus(null);
-          },
-        });
-      } else if (this.loginStatus === "Failed") {
-        this.$vs.notification({
-          progress: "auto",
-          position: "bottom-center",
-          title: "Oops!",
-          text: "Invalid login, try again.",
-          onDestroy: () => {
-            this.setLoginStatus(null);
-          },
-        });
-      }
-    },
   },
   methods: {
     ...mapActions("auth", [

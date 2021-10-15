@@ -26,7 +26,45 @@ export default {
   computed: {
     ...mapState({
       authenticated: (state) => state.auth.authenticated,
+      loginStatus: (state) => state.auth.loginStatus,
     }),
+  },
+  watch: {
+    authenticated() {
+      if (this.authenticated === false) {
+        this.$router.push("/");
+        this.$vs.notification({
+          progress: "auto",
+          color: "#97BC66",
+          position: "bottom-center",
+          title: "See you later!",
+        });
+      }
+    },
+    loginStatus() {
+      if (this.loginStatus === "Success") {
+        this.$vs.notification({
+          progress: "auto",
+          color: "#97BC66",
+          position: "bottom-center",
+          title: "Login Success!",
+          text: "Happy browsing  :)",
+          onDestroy: () => {
+            this.setLoginStatus(null);
+          },
+        });
+      } else if (this.loginStatus === "Failed") {
+        this.$vs.notification({
+          progress: "auto",
+          position: "bottom-center",
+          title: "Oops!",
+          text: "Invalid login, try again.",
+          onDestroy: () => {
+            this.setLoginStatus(null);
+          },
+        });
+      }
+    },
   },
   methods: {
     ...mapActions("auth", ["checkSession"]),

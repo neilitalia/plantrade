@@ -54,16 +54,25 @@ const actions = {
       commit('setCartStatus','Added')
     }
   },
-  async removeFromCart({commit}, payload){
+  async removeFromCart({state, commit}, payload){
     const req = {
         "cart_id": payload.cartId,
         "listing_id": payload.listingId
     }
-    console.log('req :>> ', req);
     const res = await RemoveItemFromUserCart(req)
     console.log('res :>> ', res);
     if(res.status === 200){
-      commit('setCartStatus','Removed')
+      commit("setCartStatus","Removed")
+      console.log('state.cartStatus :>> ', state.cartStatus);
+      const newCart = [...state.userCarts.cart_owner].forEach(cart => {
+        if(cart.id === res.data.payload.cart_id){
+          cart.cart_listing = cart.cart_listing.filter(listing => {
+            return listing.id !== res.data.payload.listing_id
+          })
+        }
+      })
+      console.log('newCart :>> ', newCart);
+      commit('setUserCarts', {...state.userCarts, cart_owner: newCart})
     }
   }
 }
