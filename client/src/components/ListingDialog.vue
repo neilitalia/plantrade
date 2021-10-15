@@ -54,10 +54,28 @@
               >
                 Create an account
               </vs-button>
-              <vs-button primary icon :disabled="!authenticated">
+              <vs-button
+                primary
+                icon
+                :disabled="!authenticated"
+                @click="handleAddToCart"
+              >
                 <i class="bx bx-cart"></i>
                 <span class="span">Add to cart</span>
               </vs-button>
+              <vs-select
+                placeholder="Select cart"
+                v-model="selectedCartID"
+                v-if="authenticated"
+              >
+                <vs-option
+                  v-for="cart in userCartsList.cart_owner"
+                  :key="cart.id"
+                  :label="cart.name"
+                  :value="cart.id"
+                  >{{ cart.name }}</vs-option
+                >
+              </vs-select>
             </vs-row>
           </vs-col>
         </vs-row>
@@ -73,12 +91,14 @@ export default {
   name: "ListingDialog",
   data: () => ({
     awsBaseUrl: AWS_BASE_URL,
+    selectedCartID: "",
   }),
   computed: {
     ...mapState({
       selectedListing: (state) => state.listings.selectedListing,
       selectedListingDetails: (state) => state.listings.selectedListingDetails,
       authenticated: (state) => state.auth.authenticated,
+      userCartsList: (state) => state.cart.userCartsList,
     }),
   },
   methods: {
@@ -87,6 +107,7 @@ export default {
       "resetSelectedListing",
       "resetSelectedListingDetails",
     ]),
+    ...mapActions("cart", ["addToCart"]),
     ...mapActions("auth", ["toggleAuthDialog"]),
     formatDate(rawDate) {
       return Date(Date.parse(rawDate) * 1000)
@@ -94,6 +115,13 @@ export default {
         .split(" ")
         .slice(1, 4)
         .join(" ");
+    },
+    handleAddToCart() {
+      const payload = {
+        cartId: this.selectedCartID,
+        listingId: this.selectedListing,
+      };
+      this.addToCart(payload);
     },
   },
 };

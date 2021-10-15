@@ -7,7 +7,7 @@ const GetAllUsers = async (req, res) => {
         exclude: ['password_digest']
       }
     })
-    res.send(users)
+    return res.send(users)
   } catch (error) {
     return res.status(500).send(error.message)
   }
@@ -21,9 +21,9 @@ const GetUserById = async (req, res) => {
       }
     })
     if(user) return res.send(user)
-    res.status(400).send({ error: 'No User Found' })
+    return res.status(400).send({ error: 'No User Found' })
   } catch (error) {
-    res.status(500).send({ error: error })
+    return res.status(500).send({ error: error })
   }
 }
 
@@ -36,9 +36,9 @@ const GetUserByUsername = async (req, res) => {
       }
     })
     if(user) return res.send(user)
-    res.status(400).send({ error: 'No User Found' })
+    return res.status(400).send({ error: 'No User Found' })
   } catch (error) {
-    res.status(500).send({ error: error })
+    return res.status(500).send({ error: error })
   }
 }
 
@@ -51,9 +51,25 @@ const UpdateUser = async (req, res) => {
       },
       { where: { id: req.params.user_id }, returning: true }
     )
-    res.send(user)
+    return res.send(user)
   } catch (error) {
-    res.status(500).send({ error: error })
+    return res.status(500).send({ error: error })
+  }
+}
+
+const GetUserCartsList = async (req, res) => {
+  try {
+    const userCart = await User.findOne({
+      where: {id: req.params.user_id},
+      attributes: {exclude: ['password_digest']},
+      include: {
+        model: Cart,
+        as: 'cart_owner',
+      }
+    });
+    return res.send(userCart)
+  } catch (error) {
+    return res.status(500).send({ error: error })
   }
 }
 
@@ -81,7 +97,7 @@ const GetUserCartItems = async (req, res) => {
     });
     return res.send(userCart)
   } catch (error) {
-    res.status(500).send({ error: error })
+    return res.status(500).send({ error: error })
   }
 }
 
@@ -90,5 +106,6 @@ module.exports = {
   GetUserById,
   GetUserByUsername,
   UpdateUser,
-  GetUserCartItems
+  GetUserCartItems,
+  GetUserCartsList
 }

@@ -47,7 +47,6 @@ const GetListingById = async (req, res) => {
         as: 'image_listing'
       }]
     })
-    // const listing = await Listing.findByPk(req.params.listing_id)
     if(listing){
       Listing.increment(
         { views: +1 },

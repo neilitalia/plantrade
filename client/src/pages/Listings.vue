@@ -65,6 +65,7 @@ export default {
   components: { ListingCard, ListingDialog },
   name: "Listings",
   created() {
+    this.getUserCartsList();
     this.getRecentListings();
   },
   mounted() {
@@ -74,10 +75,12 @@ export default {
     ...mapState({
       listings: (state) => state.listings.listings,
       searchQuery: (state) => state.listings.searchQuery,
+      authenticated: (state) => state.auth.authenticated,
     }),
   },
   methods: {
     ...mapActions("navigation", ["setActivePage"]),
+    ...mapActions("cart", ["getUserCartsList"]),
     ...mapActions("listings", [
       "getRecentListings",
       "setSearchQuery",

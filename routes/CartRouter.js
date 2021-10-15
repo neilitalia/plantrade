@@ -24,13 +24,6 @@ CartRouter.post(
   controller.CreateNewCart
 )
 
-CartRouter.post(
-  '/add',
-  middleware.stripToken,
-  middleware.verifyToken,
-  controller.AddToCart
-)
-
 CartRouter.get(
   '/fromuser/:user_id',
   middleware.stripToken,

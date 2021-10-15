@@ -1,8 +1,5 @@
 <template>
-  <vs-card
-    class="mb-25 plr-12"
-    @click="setSelectedListing(listing.id), getListingDetails(listing.id)"
-  >
+  <vs-card class="mb-25 plr-12" @click="handleCardClick(listing.id)">
     <template #title>
       <h3>{{ listing.title }}</h3>
     </template>
@@ -26,9 +23,18 @@
         <i class="bx bx-dollar"></i>
         <span class="span">{{ listing.price }}</span>
       </vs-button>
-      <vs-button class="btn-chat" shadow primary>
+      <vs-button class="btn-chat" shadow primary icon>
         <i class="bx bx-show"></i>
         <span class="span">&nbsp; {{ listing.views }}</span>
+      </vs-button>
+      <vs-button
+        v-if="removable"
+        class="btn-chat"
+        danger
+        icon
+        @click="removeFromCart({ cartId: cart, listingId: listing.id })"
+      >
+        <i class="bx bx-trash"></i>
       </vs-button>
     </template>
   </vs-card>
@@ -39,12 +45,19 @@ import { mapActions } from "vuex";
 import { AWS_BASE_URL } from "../globals";
 export default {
   name: "ListingCard",
-  props: ["listing"],
+  props: ["listing", "removable", "cart"],
   data: () => ({
     awsBaseUrl: AWS_BASE_URL,
   }),
   methods: {
     ...mapActions("listings", ["setSelectedListing", "getListingDetails"]),
+    ...mapActions("cart", ["removeFromCart"]),
+    handleCardClick(id) {
+      if (!this.$props.removable) {
+        this.setSelectedListing(id);
+        this.getListingDetails(id);
+      }
+    },
   },
 };
 </script>

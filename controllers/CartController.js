@@ -35,15 +35,6 @@ const CreateNewCart = async (req, res) => {
   }
 }
 
-const AddToCart = async (req, res) => {
-  try {
-    const cart = await Cart.create(req.body)
-    return res.send(cart)
-  } catch (error) {
-    return res.status(500).send(error.message)
-  }
-}
-
 const GetAllUserCarts = async (req, res) => {
   try {
     const carts = await Cart.findAll({
@@ -63,6 +54,5 @@ module.exports = {
   GetAllCarts,
   GetCartById,
   CreateNewCart,
-  AddToCart,
   GetAllUserCarts
 }

@@ -109,6 +109,6 @@ h1 {
   position: absolute;
   width: 100%;
   left: 0;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease;
 }
 </style>

@@ -58,7 +58,6 @@ const actions = {
       password: state.password
     }
     const res = await Login(payload)
-    console.log('res :>> ', res);
     if( res.status === 200 ){
       commit('setUser', res.data.user)
       commit('setAuthenticated', true)

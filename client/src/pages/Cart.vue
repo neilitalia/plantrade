@@ -1,34 +1,26 @@
 <template>
-  <div>
-    <h1 class="text-center">Your Items</h1>
-    <div v-for="cart in userCarts.cart_owner" :key="cart.id">
-      <h2>{{ cart.name }}</h2>
-      <vs-card-group>
-        <div v-for="listing in cart.cart_listing" :key="listing.id">
-          <ListingCard :listing="listing" />
-        </div>
-        <!-- <vs-card v-for="(card, index) in 6" :key="index" @click="handleClick">
-          <template #title>
-            <h3>Pot with a plant</h3>
-          </template>
-          <template #img>
-            <img :src="`/foto${card}.png`" alt="" />
-          </template>
-          <template #text>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-          </template>
-          <template #interactions>
-            <vs-button danger icon>
-              <i class="bx bx-heart"></i>
-            </vs-button>
-            <vs-button class="btn-chat" shadow primary>
-              <i class="bx bx-chat"></i>
-              <span class="span"> 54 </span>
-            </vs-button>
-          </template>
-        </vs-card> -->
-      </vs-card-group>
-    </div>
+  <div class="center grid">
+    <vs-row>
+      <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
+        <h1 class="text-center">Your Items</h1>
+      </vs-col>
+    </vs-row>
+    <vs-row v-for="cart in userCarts.cart_owner" :key="cart.id">
+      <vs-col
+        vs-type="flex"
+        vs-justify="center"
+        vs-align="center"
+        offset="2"
+        w="8"
+      >
+        <h2>List: {{ cart.name }}</h2>
+        <vs-card-group>
+          <div v-for="listing in cart.cart_listing" :key="listing.id">
+            <ListingCard :listing="listing" :removable="true" :cart="cart.id" />
+          </div>
+        </vs-card-group>
+      </vs-col>
+    </vs-row>
   </div>
 </template>
 
