@@ -1,4 +1,4 @@
-import { GetAllListings, GetListingById } from "../../services/ListingServices";
+import { GetAllListings, GetListingById, SearchForListings } from "../../services/ListingServices";
 
 const state = () => ({
   listings: [],
@@ -10,7 +10,7 @@ const state = () => ({
 
 const mutations = {
   setListings(state, payload) {
-    state.listings = payload;
+    state.listings = [...payload];
   },
   addToListings(state, payload){
     state.listings = [...state.listings, payload];
@@ -64,6 +64,12 @@ const actions = {
     const res = await GetListingById(state.selectedListing)
     if(res.status ===200){
       commit('setSelectedListingDetails', res.data)
+    }
+  },
+  async getListingsFromSearch({commit}, payload){
+    const res = await SearchForListings({query: payload})
+    if(res.status === 200){
+      commit('setListings', res.data)
     }
   }
 }

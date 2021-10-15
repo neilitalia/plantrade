@@ -23,7 +23,7 @@
         </vs-input>
       </vs-col>
       <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="1">
-        <vs-button size="xl" @click="active = 0">
+        <vs-button size="xl" @click="getListingsFromSearch(searchQuery)">
           <i class="bx bx-search-alt" />&nbsp;&nbsp;Search
         </vs-button>
       </vs-col>
@@ -41,7 +41,7 @@
           <vs-row>
             <vs-col
               v-for="listing in listings"
-              :key="listing.id"
+              :key="listing.createdAt"
               vs-justify="center"
               vs-align="center"
               w="4"
@@ -63,9 +63,11 @@ import ListingDialog from "../components/ListingDialog";
 export default {
   components: { ListingCard, ListingDialog },
   name: "Listings",
+  created() {
+    this.getRecentListings();
+  },
   mounted() {
     this.setActivePage("Listings");
-    this.getRecentListings();
   },
   computed: {
     ...mapState({
@@ -75,7 +77,11 @@ export default {
   },
   methods: {
     ...mapActions("navigation", ["setActivePage"]),
-    ...mapActions("listings", ["getRecentListings", "setSearchQuery"]),
+    ...mapActions("listings", [
+      "getRecentListings",
+      "setSearchQuery",
+      "getListingsFromSearch",
+    ]),
   },
 };
 </script>

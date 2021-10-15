@@ -124,7 +124,11 @@ const SearchForListing = async (req, res) => {
           { plant: { [Op.iLike]: `%${query}%` } },
           { description: { [Op.iLike]: `%${query}%` } }
         ]
-      }
+      },
+      include: [{
+        model: Image,
+        as: 'image_listing'
+      }]
     })
     return res.send(results)
   } catch (error) {
