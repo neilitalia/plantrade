@@ -65,6 +65,7 @@ const actions = {
       commit('toggleAuthDialog')
       commit('setUsername', '')
       commit('setPassword', '')
+      commit('registration/resetRegistration', null, { root: true })
       localStorage.setItem('token', res.data.token)
       localStorage.setItem('authenticated', true)
       localStorage.setItem('userId', res.data.user.id)

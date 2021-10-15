@@ -1,16 +1,20 @@
 import {RegisterUser} from '../../services/AuthServices'
 
-const state = () => ({
-  username: '',
-  email: '',
-  mobile: '',
-  password: '',
-  confirmPassword: '',
-  latitude: 0,
-  longitude: 0,
-  showPassword: false,
-  registerStatus: null
-})
+const iState = () => {
+  return {
+    username: '',
+    email: '',
+    mobile: '',
+    password: '',
+    confirmPassword: '',
+    latitude: 0,
+    longitude: 0,
+    showPassword: false,
+    registerStatus: null
+  }
+}
+
+const state = () => iState()
 
 const mutations = {
   setUsername(state, payload){
@@ -39,6 +43,9 @@ const mutations = {
   },
   toggleShowPassword(state){
     state.showPassword = !state.showPassword
+  },
+  resetRegistration(state){
+    Object.assign(state, iState())
   }
 }
 
@@ -74,6 +81,9 @@ const actions = {
   },
   setRegisterStatus({commit}, payload){
     commit('setRegisterStatus', payload)
+  },
+  resetRegistration({commit}){
+    commit('resetRegistration')
   },
   async handleRegister({state, commit}){
     const payload = {

@@ -61,6 +61,7 @@ Coming Soon
 - [Plant Illustrations](https://www.freepik.com/vectors/nature)
 - [Vue Route Animations](https://router.vuejs.org/guide/advanced/transitions.html#per-route-transition)
 - [Axios delete request body](https://masteringjs.io/tutorials/axios/delete-with-body)
+- [Vuex resetting to inital state](https://stackoverflow.com/questions/42295340/how-to-clear-state-in-vuex-store)
 
 ## Future Updates
 

@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const { User, Cart } = require('../models')
 const middleware = require('../middleware')
 
 const Login = async (req, res) => {
@@ -36,8 +36,8 @@ const Register = async (req, res) => {
     let password_digest = await middleware.hashPassword(password)
     const user = await User.create({ username, password_digest, email,  mobile, location_latitude, location_longitude })
     if(user){
-      
-      res.send({ username: user.username, email: user.email })
+      const cart = await Cart.create({name: "Cart", user_id: user.id})
+      res.send({ username: user.username, email: user.email, cart: cart })
     }
     return res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   } catch (error) {
