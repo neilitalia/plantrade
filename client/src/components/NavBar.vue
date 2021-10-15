@@ -36,7 +36,6 @@
           <router-link :to="{ path: '/', hash: '#register' }">
             Get Started
           </router-link>
-          <!-- <a href="#register"> Get Started </a> -->
         </vs-navbar-item>
         <vs-navbar-item v-if="!authenticated">
           <vs-button @click="toggleAuthDialog"> Log in </vs-button>

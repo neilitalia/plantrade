@@ -24,19 +24,37 @@
         </div>
       </vs-col>
       <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
-        <vs-row justify="center">
+        <vs-row justify="center" align="center">
           <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="10">
-            <h3>${{ selectedListingDetails.price }}</h3>
-            <h2>{{ selectedListingDetails.title }}</h2>
+            <h2 class="listing-card-title">
+              {{ selectedListingDetails.title }}
+            </h2>
+            <h2>${{ selectedListingDetails.price }}</h2>
+            <h3 class="listing-card-subtitle">
+              {{ selectedListingDetails.plant }}
+            </h3>
             <h3>{{ selectedListingDetails.quantity }} left</h3>
-            <p>{{ selectedListingDetails.description }}</p>
-            <p>
+            <p class="listing-card-body">
+              {{ selectedListingDetails.description }}
+            </p>
+            <p class="listing-card-body">
               Posted by {{ selectedListingDetails.listing_owner.username }} on
               {{ formatDate(selectedListingDetails.createdAt) }}
             </p>
-            <p>{{ selectedListingDetails.views }} views</p>
+            <p class="listing-card-body">
+              {{ selectedListingDetails.views }} views
+            </p>
             <vs-row>
-              <vs-button primary icon>
+              <vs-button v-if="!authenticated" @click="toggleAuthDialog">
+                <span class="span">Log in</span>
+              </vs-button>
+              <vs-button
+                v-if="!authenticated"
+                :to="{ path: '/', hash: '#register' }"
+              >
+                Create an account
+              </vs-button>
+              <vs-button primary icon :disabled="!authenticated">
                 <i class="bx bx-cart"></i>
                 <span class="span">Add to cart</span>
               </vs-button>
@@ -60,6 +78,7 @@ export default {
     ...mapState({
       selectedListing: (state) => state.listings.selectedListing,
       selectedListingDetails: (state) => state.listings.selectedListingDetails,
+      authenticated: (state) => state.auth.authenticated,
     }),
   },
   methods: {
@@ -68,6 +87,7 @@ export default {
       "resetSelectedListing",
       "resetSelectedListingDetails",
     ]),
+    ...mapActions("auth", ["toggleAuthDialog"]),
     formatDate(rawDate) {
       return Date(Date.parse(rawDate) * 1000)
         .toLocaleString("en-us")
@@ -88,5 +108,18 @@ export default {
   position: relative;
   border-radius: inherit;
   width: 100%;
+}
+.listing-card-title {
+  font-size: 2.3rem;
+  line-height: 2.5rem;
+  margin-bottom: 0;
+}
+.listing-card-subtitle {
+  font-size: 1.5rem;
+  margin: 0;
+  line-height: 1rem;
+}
+.listing-card-body {
+  margin: 5px auto;
 }
 </style>
