@@ -3,12 +3,12 @@
     <WelcomeHeader />
     <HomeSection1 />
     <HomeSection2 />
-    <HomeSection3 />
+    <HomeSection3 v-if="!authenticated" />
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import WelcomeHeader from "../components/WelcomeHeader.vue";
 import HomeSection1 from "../components/HomeSection1.vue";
 import HomeSection2 from "../components/HomeSection2.vue";
@@ -20,6 +20,11 @@ export default {
     HomeSection1,
     HomeSection2,
     HomeSection3,
+  },
+  computed: {
+    ...mapState({
+      authenticated: (state) => state.auth.authenticated,
+    }),
   },
   mounted() {
     this.setActivePage("Home");

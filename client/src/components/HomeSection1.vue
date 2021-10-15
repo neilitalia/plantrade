@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-section-2">
     <vs-row>
       <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
         <h1 class="text-center">Our platform makes it easy</h1>
@@ -35,4 +35,7 @@ export default {
 </script>
 
 <style>
+.home-section-2 {
+  background-color: #edf1b3;
+}
 </style>

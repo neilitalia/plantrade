@@ -6,13 +6,13 @@
     <main>
       <router-view></router-view>
     </main>
-    <AuthDialog />
+    <AuthDialog v-if="!authenticated" />
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import AuthDialog from "./components/AuthDialog";
+import { mapState, mapActions } from "vuex";
+import AuthDialog from "./components/AuthDialog.vue";
 import NavBar from "./components/NavBar";
 
 export default {
@@ -20,6 +20,11 @@ export default {
   components: {
     NavBar,
     AuthDialog,
+  },
+  computed: {
+    ...mapState({
+      authenticated: (state) => state.auth.authenticated,
+    }),
   },
   methods: {
     ...mapActions("auth", ["checkSession"]),

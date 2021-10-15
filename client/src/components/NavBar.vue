@@ -20,8 +20,8 @@
         <vs-navbar-item :active="activePage === 'Listings'">
           <router-link to="/listings"> Listings </router-link>
         </vs-navbar-item>
-        <vs-navbar-item :active="activePage === 'Orders'" v-if="authenticated">
-          <router-link to="/orders"> Orders </router-link>
+        <vs-navbar-item :active="activePage === 'Cart'" v-if="authenticated">
+          <router-link to="/cart"> Cart </router-link>
         </vs-navbar-item>
         <vs-navbar-item
           :active="activePage === 'Checkout'"

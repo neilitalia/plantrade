@@ -15,16 +15,13 @@
         <h2>Find the hottest deals on houseplants.</h2>
         <p>
           Plantrade is a new and growing online platform to buy and sell
-          houseplants. See the hottest plants for sale without having to create
-          an account.
+          houseplants. See the most popular plants for sale without having to
+          create an account.
         </p>
-        <div class="center content-inputs">
-          <vs-input
-            label="Search"
-            v-model="value"
-            placeholder="Look for plants"
-          />
-        </div>
+
+        <vs-button gradient size="large" v-if="!authenticated" to="/listings">
+          Start searching
+        </vs-button>
       </vs-col>
     </vs-row>
   </div>
