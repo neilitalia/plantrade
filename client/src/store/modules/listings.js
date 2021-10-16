@@ -5,7 +5,8 @@ const state = () => ({
   selectedListing: false,
   selectedListingDetails: null,
   listingsStatus: null,
-  searchQuery: ''
+  searchQuery: '',
+  sortMethod: ''
 })
 
 const mutations = {
@@ -32,6 +33,9 @@ const mutations = {
   },
   setSearchQuery(state, payload){
     state.searchQuery = payload
+  },
+  setSortMethod(state, payload){
+    state.sortMethod = payload
   }
 }
 
@@ -51,6 +55,9 @@ const actions = {
   setSearchQuery({commit}, payload){
     const query = payload.target.value
     commit('setSearchQuery', query)
+  },
+  setSortMethod({commit}, payload){
+    commit('setSortMethod', payload)
   },
   async getRecentListings({commit}){
     const res = await GetAllListings()

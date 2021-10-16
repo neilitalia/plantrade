@@ -35,7 +35,7 @@ router.beforeEach((to, from, next)=>{
     && to.meta.auth
     && !store.getters['auth/authenticated']
   ) {
-    next('/');
+    next();
   } else if (
     'auth' in to.meta
     && !to.meta.auth

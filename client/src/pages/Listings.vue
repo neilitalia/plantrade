@@ -29,6 +29,19 @@
         </vs-button>
       </vs-col>
     </vs-row>
+    <vs-row justify="center" align="center">
+      <vs-col vs-type="flex" vs-justify="flex-end" vs-align="center" w="2">
+        <h3 class="text-center">Sort by:</h3>
+      </vs-col>
+      <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="2">
+        <vs-radio v-model="sortMethod" val="Most Recent">Most Recent</vs-radio>
+      </vs-col>
+      <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="2">
+        <vs-radio v-model="sortMethod" val="Most Popular" @click="setSortMethod"
+          >Most Popular</vs-radio
+        >
+      </vs-col>
+    </vs-row>
     <vs-row>
       <vs-row>
         <vs-col
@@ -64,6 +77,9 @@ import ListingDialog from "../components/ListingDialog";
 export default {
   components: { ListingCard, ListingDialog },
   name: "Listings",
+  data: () => ({
+    picked: "",
+  }),
   created() {
     this.getUserCartsList();
     this.getRecentListings();
@@ -75,8 +91,17 @@ export default {
     ...mapState({
       listings: (state) => state.listings.listings,
       searchQuery: (state) => state.listings.searchQuery,
+      // sortMethod: (state) => state.listings.sortMethod,
       authenticated: (state) => state.auth.authenticated,
     }),
+    sortMethod: {
+      get() {
+        return this.$store.state.listings.sortMethod;
+      },
+      set(value) {
+        this.$store.commit("listings/setSortMethod", value);
+      },
+    },
   },
   methods: {
     ...mapActions("navigation", ["setActivePage"]),
@@ -85,14 +110,14 @@ export default {
       "getRecentListings",
       "setSearchQuery",
       "getListingsFromSearch",
+      "setSortMethod",
     ]),
   },
 };
 </script>
 
 <style>
-.listings-search-bar > * > input,
-label {
+.listings-search-bar > * > input {
   height: 70px;
   font-size: 30px;
 }

@@ -23,24 +23,18 @@ export default {
     NavBar,
     AuthDialog,
   },
+  created() {
+    this.checkSession().then(() => {
+      if (this.authenticated) this.getUserCartItems();
+    });
+  },
   computed: {
     ...mapState({
-      authenticated: (state) => state.auth.authenticated,
       loginStatus: (state) => state.auth.loginStatus,
+      authenticated: (state) => state.auth.authenticated,
     }),
   },
   watch: {
-    authenticated() {
-      if (this.authenticated === false) {
-        this.$router.push("/");
-        this.$vs.notification({
-          progress: "auto",
-          color: "#97BC66",
-          position: "bottom-center",
-          title: "See you later!",
-        });
-      }
-    },
     loginStatus() {
       if (this.loginStatus === "Success") {
         this.$vs.notification({
@@ -49,6 +43,17 @@ export default {
           position: "bottom-center",
           title: "Login Success!",
           text: "Happy browsing  :)",
+          onDestroy: () => {
+            this.setLoginStatus(null);
+          },
+        });
+      } else if (this.loginStatus === "Logged Out") {
+        this.$router.push("/");
+        this.$vs.notification({
+          progress: "auto",
+          color: "#97BC66",
+          position: "bottom-center",
+          title: "See you later!",
           onDestroy: () => {
             this.setLoginStatus(null);
           },
@@ -68,9 +73,7 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["checkSession"]),
-  },
-  mounted() {
-    this.checkSession();
+    ...mapActions("cart", ["getUserCartItems"]),
   },
 };
 </script>
@@ -148,5 +151,17 @@ h1 {
   width: 100%;
   left: 0;
   transition: all 0.3s ease;
+}
+div.vs-card {
+  box-shadow: 0px 8px 20px #1f1d1e23;
+}
+button.vs-button:disabled {
+  opacity: 0.5;
+}
+button.vs-navbar__item {
+  color: #28164f;
+}
+div.vs-navbar__line {
+  color: #28164f;
 }
 </style>

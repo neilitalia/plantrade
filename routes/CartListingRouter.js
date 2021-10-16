@@ -24,4 +24,18 @@ CartListingRouter.delete(
   controller.RemoveFromCart
 )
 
+CartListingRouter.put(
+  '/increment',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.IncreaseQuantityInCart
+)
+
+CartListingRouter.put(
+  '/decrement',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.DecreaseQuantityInCart
+)
+
 module.exports = CartListingRouter

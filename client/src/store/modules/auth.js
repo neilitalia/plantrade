@@ -59,9 +59,9 @@ const actions = {
     }
     const res = await Login(payload)
     if( res.status === 200 ){
+      commit('setLoginStatus', 'Success')
       commit('setUser', res.data.user)
       commit('setAuthenticated', true)
-      commit('setLoginStatus', 'Success')
       commit('toggleAuthDialog')
       commit('setUsername', '')
       commit('setPassword', '')
@@ -82,10 +82,12 @@ const actions = {
       commit('setAuthenticated', true)
       localStorage.setItem('authenticated', true)
     }
+    return res.data
   },
   handleLogOut({commit}){
     commit('setUser', null)
     commit('setAuthenticated', false)
+    commit('setLoginStatus', 'Logged Out')
     localStorage.clear()
   }
 }

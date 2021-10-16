@@ -20,16 +20,12 @@
       >
         <h2>List: {{ cart.name }}</h2>
         <div v-if="!cart.cart_listing.length">
-          <h2>Your cart is lonely :( No items yet</h2>
+          <h2>Your {{ cart.name }} is lonely :( No items yet</h2>
         </div>
         <div v-else>
           <vs-card-group>
             <div v-for="listing in cart.cart_listing" :key="listing.id">
-              <ListingCard
-                :listing="listing"
-                :removable="true"
-                :cart="cart.id"
-              />
+              <ListingCard :listing="listing" :inCart="true" :cart="cart" />
             </div>
           </vs-card-group>
         </div>
@@ -44,9 +40,6 @@ import ListingCard from "../components/ListingCard.vue";
 export default {
   name: "Cart",
   components: { ListingCard },
-  created() {
-    this.getUserCartItems();
-  },
   mounted() {
     this.setActivePage("Cart");
   },

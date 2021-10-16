@@ -19,3 +19,13 @@ export const RemoveItemFromUserCart = async (data) => {
   const res = await Client.delete('/cartlisting/remove', {data})
   return res
 }
+
+export const IncrementCartItem = async (data) => {
+  const res = await Client.put('/cartlisting/increment',data)
+  return res
+}
+
+export const DecrementCartItem = async (data) => {
+  const res = await Client.put('/cartlisting/decrement',data)
+  return res
+}

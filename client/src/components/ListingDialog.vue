@@ -64,6 +64,7 @@
                 <span class="span">Add to cart</span>
               </vs-button>
               <vs-select
+                state="dark"
                 placeholder="Select cart"
                 v-model="selectedCartID"
                 v-if="authenticated"

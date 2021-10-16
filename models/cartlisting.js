@@ -4,10 +4,11 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class CartListing extends Model {
-    static associate(models) {
-    }
   };
   CartListing.init({
+    quantity:  {
+      type: DataTypes.INTEGER,
+    },
     cart_id:  {
       type: DataTypes.INTEGER,
       references: {
@@ -23,6 +24,12 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
   }, {
+    indexes: [
+      {
+        unique: true,
+        fields: ["listing_id", "cart_id"]
+      }
+    ],
     sequelize,
     modelName: 'CartListing',
     tableName: 'carts_listings'

@@ -1,4 +1,4 @@
-import { GetUserCartItems, AddItemToUserCart, GetUserCartsList, RemoveItemFromUserCart } from "../../services/CartServices";
+import { GetUserCartItems, AddItemToUserCart, GetUserCartsList, RemoveItemFromUserCart, IncrementCartItem, DecrementCartItem } from "../../services/CartServices";
 
 const state = () => ({
   userCarts: [],
@@ -54,16 +54,14 @@ const actions = {
       commit('setCartStatus','Added')
     }
   },
-  async removeFromCart({state, commit}, payload){
+  async removeFromCart({commit, state}, payload){
     const req = {
         "cart_id": payload.cartId,
         "listing_id": payload.listingId
     }
     const res = await RemoveItemFromUserCart(req)
-    console.log('res :>> ', res);
-    if(res.status === 200){
-      commit("setCartStatus","Removed")
-      console.log('state.cartStatus :>> ', state.cartStatus);
+    if (res.status === 200){
+      commit("setCartStatus", "Removed")
       const newCart = [...state.userCarts.cart_owner].forEach(cart => {
         if(cart.id === res.data.payload.cart_id){
           cart.cart_listing = cart.cart_listing.filter(listing => {
@@ -71,8 +69,27 @@ const actions = {
           })
         }
       })
-      console.log('newCart :>> ', newCart);
       commit('setUserCarts', {...state.userCarts, cart_owner: newCart})
+    }
+  },
+  async incrementCartItem({commit},payload){
+    const req = {
+      cart_id: payload.cartId,
+      listing_id: payload.listingId
+    }
+    const res = await IncrementCartItem(req)
+    if(res.status === 200){
+      commit('setCartStatus','Incremented')
+    }
+  },
+  async decrementCartItem({commit},payload){
+    const req = {
+      cart_id: payload.cartId,
+      listing_id: payload.listingId
+    }
+    const res = await DecrementCartItem(req)
+    if(res.status === 200){
+      commit('setCartStatus','Decremented')
     }
   }
 }
