@@ -28,9 +28,9 @@
             vs-justify="center"
             vs-align="center"
             offset="1"
-            w="3"
+            w="4"
           >
-            <h1>form</h1>
+            <SellForm />
           </vs-col>
         </vs-row>
       </vs-col>
@@ -40,10 +40,11 @@
 
 <script>
 import ImageUpload from "../components/ImageUpload";
+import SellForm from "../components/SellForm";
 import { mapActions } from "vuex";
 export default {
   name: "Sell",
-  components: { ImageUpload },
+  components: { ImageUpload, SellForm },
   mounted() {
     this.setActivePage("Sell");
   },

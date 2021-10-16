@@ -8,7 +8,6 @@
       accept="image/*"
       id="image-upload"
       @change="handleFileChange"
-      @blur="handleBlur"
     />
   </vs-button>
 </template>
@@ -17,9 +16,6 @@
 import { mapState, mapActions } from "vuex";
 export default {
   name: "ImageUpload",
-  data: () => ({
-    imagePreview: null,
-  }),
   computed: {
     ...mapState({
       imageFile: (state) => state.sell.imageFile,
@@ -39,16 +35,13 @@ export default {
       if (file && file[0]) {
         console.log("file :>> ", file);
         this.setImageFile(file[0]);
-        this.setImageFileName(file[0].name);
+        this.setLocalFileName(file[0].name);
         const reader = new FileReader();
         reader.onload = (e) => {
           this.setImagePreview(e.target.result);
         };
         reader.readAsDataURL(file[0]);
       }
-    },
-    handleBlur() {
-      console.log("blurred :>> ");
     },
   },
 };

@@ -3,15 +3,18 @@ import { GetUploadUrl } from "../../services/ImageServices"
 const iState = () => {
   return {
     title: '',
-    price: 0,
+    price: '',
     plant: '',
     description: '',
-    quantity: 0,
+    quantity: '',
     imageFile: null,
     imagePreview: null,
     localFileName: '',
     s3FileName: '',
-    uploadUrl: ''
+    uploadUrl: '',
+    sellStatus: '',
+    uploadStatus: '',
+    listingId: null
   }
 }
 
@@ -37,7 +40,7 @@ const mutations = {
     state.imageFile = payload
   },
   setLocalFileName(state, payload){
-    state.imageFileName = payload
+    state.localFileName = payload
   },
   setS3FileName(state, payload){
     state.s3FileName = payload
@@ -70,10 +73,10 @@ const actions = {
     commit('setImageFile',payload)
   },
   setLocalFileName({commit}, payload){
-    commit('setImageFileName',payload)
+    commit('setLocalFileName',payload)
   },
   setS3FileName({commit}, payload){
-    commit('setImageFileName',payload)
+    commit('setS3FileName',payload)
   },
   setImagePreview({commit}, payload){
     commit('setImagePreview',payload)
