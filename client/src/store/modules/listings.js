@@ -4,6 +4,7 @@ const state = () => ({
   listings: [],
   openListingDialog: false,
   selectedListing: false,
+  selectedCartId: null,
   selectedListingDetails: null,
   listingsStatus: null,
   searchQuery: '',
@@ -25,6 +26,9 @@ const mutations = {
   },
   setSelectedListing(state, payload){
     state.selectedListing = payload
+  },
+  setSelectedCartIf(state, payload){
+    state.selectedCartId = payload
   },
   setSelectedListingDetails(state, payload){
     state.selectedListingDetails = payload
@@ -49,6 +53,9 @@ const actions = {
   },
   setSelectedListing({commit}, payload){
     commit('setSelectedListing', payload)
+  },
+  setSelectedCartId({commit}, payload){
+    commit('setSelectedCart', payload)
   },
   toggleListingDialog({commit}){
     commit('toggleListingDialog')

@@ -59,6 +59,7 @@ const actions = {
     }
     const res = await Login(payload)
     if( res.status === 200 ){
+      commit('navigation/setActivePage', 'Home',{ root: true })
       commit('setLoginStatus', 'Success')
       commit('setUser', res.data.user)
       commit('setAuthenticated', true)
@@ -88,6 +89,7 @@ const actions = {
     commit('setUser', null)
     commit('setAuthenticated', false)
     commit('setLoginStatus', 'Logged Out')
+    commit('navigation/setActivePage', 'Home',{ root: true })
     localStorage.clear()
   }
 }

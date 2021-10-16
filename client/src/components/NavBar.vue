@@ -14,6 +14,13 @@
           Listings
         </vs-navbar-item>
         <vs-navbar-item
+          to="/sell"
+          :active="activePage === 'Sell'"
+          v-if="authenticated"
+        >
+          Sell
+        </vs-navbar-item>
+        <vs-navbar-item
           to="/cart"
           :active="activePage === 'Cart'"
           v-if="authenticated"
