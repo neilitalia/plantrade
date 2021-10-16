@@ -59,7 +59,7 @@ const actions = {
     }
     const res = await Login(payload)
     if( res.status === 200 ){
-      commit('navigation/setActivePage', 'Home',{ root: true })
+      commit('navigation/setActivePage', null,{ root: true })
       commit('setLoginStatus', 'Success')
       commit('setUser', res.data.user)
       commit('setAuthenticated', true)
@@ -81,6 +81,7 @@ const actions = {
     if(res.status ===200){
       commit('setUser', res.data)
       commit('setAuthenticated', true)
+      commit('setLoginStatus', 'Logged Back In')
       localStorage.setItem('authenticated', true)
     }
     return res.data

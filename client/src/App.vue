@@ -25,13 +25,14 @@ export default {
   },
   created() {
     const token = localStorage.getItem("token");
-    if (token)
+    if (token) {
       this.checkSession().then(() => {
         if (this.authenticated) {
           this.getUserCartItems();
           this.getUserCartsList();
         }
       });
+    }
   },
   computed: {
     ...mapState({
@@ -52,6 +53,17 @@ export default {
           position: "bottom-center",
           title: `Hey there ${this.user.username}!`,
           text: "Login success. Happy browsing :)",
+          onDestroy: () => {
+            this.setLoginStatus(null);
+          },
+        });
+      } else if (this.loginStatus === "Logged Back In") {
+        this.$vs.notification({
+          progress: "auto",
+          color: "#B5E27A",
+          position: "bottom-center",
+          title: `Welcome back ${this.user.username}!`,
+          text: "Nice to see you again :)",
           onDestroy: () => {
             this.setLoginStatus(null);
           },
