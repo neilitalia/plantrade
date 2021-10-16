@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const helmet = require("helmet");
+// const helmet = require("helmet");
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 const path = require('path')
@@ -13,7 +13,7 @@ const app = express()
 
 const PORT = process.env.PORT || 3001
 
-app.use(helmet())
+// app.use(helmet())
 app.use(cors())
 app.use(logger('dev'))
 app.use(bodyParser.json())
