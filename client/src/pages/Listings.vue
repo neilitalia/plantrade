@@ -108,10 +108,10 @@ export default {
     picked: "",
   }),
   created() {
-    this.getUserCartsList();
     this.getRecentListings();
   },
   mounted() {
+    this.getUserCartsList();
     this.setActivePage("Listings");
   },
   computed: {

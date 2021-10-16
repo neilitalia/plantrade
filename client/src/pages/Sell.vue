@@ -14,10 +14,22 @@
         w="8"
       >
         <vs-row>
-          <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="7">
-            <input type="file" accept="image/*" @change="handleFileChange" />
+          <vs-col
+            vs-type="flex"
+            vs-justify="center"
+            vs-align="center"
+            offset="2"
+            w="4"
+          >
+            <ImageUpload />
           </vs-col>
-          <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+          <vs-col
+            vs-type="flex"
+            vs-justify="center"
+            vs-align="center"
+            offset="1"
+            w="3"
+          >
             <h1>form</h1>
           </vs-col>
         </vs-row>
@@ -27,27 +39,16 @@
 </template>
 
 <script>
+import ImageUpload from "../components/ImageUpload";
 import { mapActions } from "vuex";
 export default {
   name: "Sell",
+  components: { ImageUpload },
   mounted() {
     this.setActivePage("Sell");
   },
   methods: {
     ...mapActions("navigation", ["setActivePage"]),
-    handleFileChange(e) {
-      const file = e.target.files;
-      if (file && file[0]) {
-        console.log("file :>> ", file);
-        this.file = file[0];
-        this.fileName = file[0].name;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.filePreview = e.target.result;
-        };
-        reader.readAsDataURL(file[0]);
-      }
-    },
   },
 };
 </script>
