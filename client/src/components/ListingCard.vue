@@ -46,7 +46,7 @@
         >
           <i class="bx bx-minus-circle"></i>
         </vs-button>
-        <vs-button shadow primary>
+        <vs-button shadow primary class="no-pointer">
           <span class="span">{{ listing.cart_info.quantity }}</span>
         </vs-button>
         <vs-button
@@ -71,6 +71,16 @@ export default {
   data: () => ({
     awsBaseUrl: AWS_BASE_URL,
   }),
+  computed: {
+    openListingDialog: {
+      get() {
+        return this.$store.state.listings.openListingDialog;
+      },
+      set() {
+        this.$store.commit("listings/toggleListingDialog");
+      },
+    },
+  },
   methods: {
     ...mapActions("listings", ["setSelectedListing", "getListingDetails"]),
     ...mapActions("cart", [
@@ -82,6 +92,7 @@ export default {
       if (!this.$props.inCart) {
         this.setSelectedListing(id);
         this.getListingDetails(id);
+        this.$store.commit("listings/toggleListingDialog");
       }
     },
   },

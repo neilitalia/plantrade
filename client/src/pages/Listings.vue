@@ -30,17 +30,44 @@
       </vs-col>
     </vs-row>
     <vs-row justify="center" align="center">
-      <vs-col vs-type="flex" vs-justify="flex-end" vs-align="center" w="2">
-        <h3 class="text-center">Sort by:</h3>
-      </vs-col>
-      <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="2">
-        <vs-radio v-model="sortMethod" val="Most Recent">Most Recent</vs-radio>
-      </vs-col>
-      <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="2">
-        <vs-radio v-model="sortMethod" val="Most Popular" @click="setSortMethod"
-          >Most Popular</vs-radio
-        >
-      </vs-col>
+      <h3 class="text-center plr-12">Sort by</h3>
+      <vs-button-group class="plr-12">
+        <vs-button flat icon>
+          <i class="bx bxs-chevron-up"></i>
+        </vs-button>
+        <vs-button flat icon class="no-pointer"> Popularity </vs-button>
+        <vs-button flat icon>
+          <i class="bx bxs-chevron-down"></i>
+        </vs-button>
+      </vs-button-group>
+      <vs-button-group class="plr-12">
+        <vs-button flat icon>
+          <i class="bx bxs-chevron-up"></i>
+        </vs-button>
+        <vs-button flat icon class="no-pointer"> Time </vs-button>
+        <vs-button flat icon>
+          <i class="bx bxs-chevron-down"></i>
+        </vs-button>
+      </vs-button-group>
+      <vs-button-group class="plr-12">
+        <vs-button flat icon>
+          <i class="bx bxs-chevron-up"></i>
+        </vs-button>
+        <vs-button flat icon class="no-pointer"> Price </vs-button>
+        <vs-button flat icon>
+          <i class="bx bxs-chevron-down"></i>
+        </vs-button>
+      </vs-button-group>
+      <vs-button-group class="plr-12">
+        <vs-button flat icon>
+          <i class="bx bxs-chevron-up"></i>
+        </vs-button>
+        <vs-button flat icon class="no-pointer"> Alphabetical </vs-button>
+        <vs-button flat icon>
+          <i class="bx bxs-chevron-down"></i>
+        </vs-button>
+      </vs-button-group>
+      <vs-button border> Update Results</vs-button>
     </vs-row>
     <vs-row>
       <vs-row>
@@ -91,7 +118,6 @@ export default {
     ...mapState({
       listings: (state) => state.listings.listings,
       searchQuery: (state) => state.listings.searchQuery,
-      // sortMethod: (state) => state.listings.sortMethod,
       authenticated: (state) => state.auth.authenticated,
     }),
     sortMethod: {

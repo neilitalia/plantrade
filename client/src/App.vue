@@ -24,25 +24,34 @@ export default {
     AuthDialog,
   },
   created() {
-    this.checkSession().then(() => {
-      if (this.authenticated) this.getUserCartItems();
-    });
+    const token = localStorage.getItem("token");
+    if (token)
+      this.checkSession().then(() => {
+        if (this.authenticated) {
+          this.getUserCartItems();
+          this.getUserCartsList();
+        }
+      });
   },
   computed: {
     ...mapState({
       loginStatus: (state) => state.auth.loginStatus,
+      cartStatus: (state) => state.cart.cartStatus,
       authenticated: (state) => state.auth.authenticated,
+      user: (state) => state.auth.user,
     }),
   },
   watch: {
     loginStatus() {
       if (this.loginStatus === "Success") {
+        this.getUserCartItems();
+        this.getUserCartsList();
         this.$vs.notification({
           progress: "auto",
-          color: "#97BC66",
+          color: "#B5E27A",
           position: "bottom-center",
-          title: "Login Success!",
-          text: "Happy browsing  :)",
+          title: `Hey there ${this.user.username}!`,
+          text: "Login success. Happy browsing :)",
           onDestroy: () => {
             this.setLoginStatus(null);
           },
@@ -51,7 +60,7 @@ export default {
         this.$router.push("/");
         this.$vs.notification({
           progress: "auto",
-          color: "#97BC66",
+          color: "#B5E27A",
           position: "bottom-center",
           title: "See you later!",
           onDestroy: () => {
@@ -70,10 +79,48 @@ export default {
         });
       }
     },
+    cartStatus() {
+      if (this.cartStatus === "Added") {
+        this.$vs.notification({
+          progress: "auto",
+          color: "#B5E27A",
+          position: "bottom-center",
+          title: "Item added to cart!",
+          onDestroy: () => {
+            this.setCartStatus(null);
+          },
+        });
+      } else if (this.cartStatus === "Removed") {
+        this.$router.push("/");
+        this.$vs.notification({
+          progress: "auto",
+          color: "#B5E27A",
+          position: "bottom-center",
+          title: "We took it off your cart.",
+          onDestroy: () => {
+            this.setCartStatus(null);
+          },
+        });
+      } else if (this.cartStatus === "Failed") {
+        this.$vs.notification({
+          progress: "auto",
+          position: "bottom-center",
+          title: "Oops!",
+          text: "Something went wrong, try again.",
+          onDestroy: () => {
+            this.setCartStatus(null);
+          },
+        });
+      }
+    },
   },
   methods: {
     ...mapActions("auth", ["checkSession"]),
-    ...mapActions("cart", ["getUserCartItems"]),
+    ...mapActions("cart", [
+      "getUserCartItems",
+      "getUserCartsList",
+      "setCartStatus",
+    ]),
   },
 };
 </script>
@@ -151,6 +198,9 @@ h1 {
   width: 100%;
   left: 0;
   transition: all 0.3s ease;
+}
+.no-pointer {
+  pointer-events: none;
 }
 div.vs-card {
   box-shadow: 0px 8px 20px #1f1d1e23;

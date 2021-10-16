@@ -94,7 +94,7 @@ import Plant7 from "../assets/Plant7";
 import Plant8 from "../assets/Plant8";
 import { mapState, mapActions } from "vuex";
 export default {
-  name: "HomeSection3",
+  name: "Register",
   components: {
     Plant10,
     Plant7,

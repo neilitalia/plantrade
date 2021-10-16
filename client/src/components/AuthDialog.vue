@@ -1,5 +1,5 @@
 <template>
-  <vs-dialog blur auto-width v-model="$store.state.auth.openAuthDialog">
+  <vs-dialog blur auto-width v-model="openAuthDialog">
     <template #header>
       <div>
         <h4 class="not-margin">Sign in to plantrade</h4>
@@ -52,6 +52,14 @@ export default {
       password: (state) => state.auth.password,
       showPassword: (state) => state.auth.showPassword,
     }),
+    openAuthDialog: {
+      get() {
+        return this.$store.state.auth.openAuthDialog;
+      },
+      set() {
+        this.$store.commit("auth/toggleAuthDialog");
+      },
+    },
   },
   methods: {
     ...mapActions("auth", [

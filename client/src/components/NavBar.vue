@@ -1,6 +1,6 @@
 <template>
   <div class="center">
-    <vs-navbar shadow shadowScroll :color="active" fixed center-collapsed>
+    <vs-navbar shadow shadowScroll fixed center-collapsed>
       <template #left>
         <vs-navbar-item to="/">
           <img src="../assets/logo.png" alt="plantrade logo" height="40px" />
@@ -66,6 +66,7 @@ export default {
     }),
   },
   methods: {
+    ...mapActions("navigation", ["setActivePage"]),
     ...mapActions("auth", ["toggleAuthDialog", "handleLogOut"]),
   },
 };

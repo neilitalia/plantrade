@@ -2,6 +2,7 @@ import { GetAllListings, GetListingById, SearchForListings } from "../../service
 
 const state = () => ({
   listings: [],
+  openListingDialog: false,
   selectedListing: false,
   selectedListingDetails: null,
   listingsStatus: null,
@@ -15,6 +16,9 @@ const mutations = {
   },
   addToListings(state, payload){
     state.listings = [...state.listings, payload];
+  },
+  toggleListingDialog(state){
+    state.openListingDialog = !state.openListingDialog
   },
   setListingsStatus(state, payload){
     state.listingsStatus = payload
@@ -45,6 +49,9 @@ const actions = {
   },
   setSelectedListing({commit}, payload){
     commit('setSelectedListing', payload)
+  },
+  toggleListingDialog({commit}){
+    commit('toggleListingDialog')
   },
   resetSelectedListing({commit}){
     commit('resetSelectedListing')

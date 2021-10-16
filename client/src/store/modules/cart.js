@@ -51,7 +51,9 @@ const actions = {
     }
     const res = await AddItemToUserCart(req)
     if(res.status === 200){
-      commit('setCartStatus','Added')
+      commit('setCartStatus',"Added")
+    } else {
+      commit('setCartStatus',"Failed")
     }
   },
   async removeFromCart({commit, state}, payload){
@@ -70,6 +72,8 @@ const actions = {
         }
       })
       commit('setUserCarts', {...state.userCarts, cart_owner: newCart})
+    } else {
+      commit('setCartStatus','Failed')
     }
   },
   async incrementCartItem({commit},payload){

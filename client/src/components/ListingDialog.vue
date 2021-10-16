@@ -3,23 +3,23 @@
     not-padding
     scroll
     overflow-hidden
-    v-model="$store.state.listings.selectedListing"
+    v-model="openListingDialog"
     class="listing-dialog center grid"
   >
     <vs-row vs-justify="space-between">
       <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
         <div class="con-image">
           <img
-            v-if="selectedListingDetails.image_listing.length"
+            v-if="!selectedListingDetails.image_listing.length"
+            src="https://images.unsplash.com/photo-1562619227-71c891fd2799?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2626&q=80"
+            alt="Plant placeholder image"
+          />
+          <img
+            v-else
             :src="
               awsBaseUrl + selectedListingDetails.image_listing[0].file_name
             "
             alt="Plant photo"
-          />
-          <img
-            v-else
-            src="https://images.unsplash.com/photo-1562619227-71c891fd2799?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2626&q=80"
-            alt="Plant placeholder image"
           />
         </div>
       </vs-col>
@@ -44,14 +44,11 @@
             <p class="listing-card-body">
               {{ selectedListingDetails.views }} views
             </p>
-            <vs-row>
+            <vs-row align="center">
               <vs-button v-if="!authenticated" @click="toggleAuthDialog">
                 <span class="span">Log in</span>
               </vs-button>
-              <vs-button
-                v-if="!authenticated"
-                :to="{ path: '/', hash: '#register' }"
-              >
+              <vs-button v-if="!authenticated" to="/#register">
                 Create an account
               </vs-button>
               <vs-button
@@ -101,6 +98,14 @@ export default {
       authenticated: (state) => state.auth.authenticated,
       userCartsList: (state) => state.cart.userCartsList,
     }),
+    openListingDialog: {
+      get() {
+        return this.$store.state.listings.openListingDialog;
+      },
+      set() {
+        this.$store.commit("listings/toggleListingDialog");
+      },
+    },
   },
   methods: {
     ...mapActions("listings", [

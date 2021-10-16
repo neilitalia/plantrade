@@ -3,7 +3,7 @@
     <WelcomeHeader />
     <HomeSection1 />
     <HomeSection2 />
-    <HomeSection3 v-if="!authenticated" />
+    <Register v-if="!authenticated" />
   </div>
 </template>
 
@@ -12,14 +12,14 @@ import { mapState, mapActions } from "vuex";
 import WelcomeHeader from "../components/WelcomeHeader.vue";
 import HomeSection1 from "../components/HomeSection1.vue";
 import HomeSection2 from "../components/HomeSection2.vue";
-import HomeSection3 from "../components/HomeSection3.vue";
+import Register from "../components/Register.vue";
 export default {
   name: "Home",
   components: {
     WelcomeHeader,
     HomeSection1,
     HomeSection2,
-    HomeSection3,
+    Register,
   },
   computed: {
     ...mapState({
