@@ -6,6 +6,11 @@ export const GetUploadUrl = async () => {
   return res
 }
 
+export const AddImageToListing = async (data) => {
+  const res = await Client.post('/image/add', data)
+  return res
+}
+
 export const UploadToBucket = async (url, data) => {
   const res = axios.put(url, data, {
     header: {

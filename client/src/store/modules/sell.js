@@ -1,4 +1,5 @@
-import { GetUploadUrl } from "../../services/ImageServices"
+import { GetUploadUrl, UploadToBucket, AddImageToListing } from "../../services/ImageServices"
+import { SubmitNewListing } from '../../services/ListingServices'
 
 const iState = () => {
   return {
@@ -14,7 +15,8 @@ const iState = () => {
     uploadUrl: '',
     sellStatus: '',
     uploadStatus: '',
-    listingId: null
+    listingId: null,
+    listingStatus: ''
   }
 }
 
@@ -50,6 +52,20 @@ const mutations = {
   },
   setUploadUrl(state, payload){
     state.uploadUrl = payload
+  },
+  setUploadStatus(state, payload){
+    state.uploadStatus = payload
+  },
+  setListingStatus(state, payload){
+    state.listingStatus = payload
+  },
+  resetFileUpload(state){
+    state.imageFile = iState().imageFile
+    state.imagePreview = iState().imagePreview
+    state.localFileName = iState().localFileName
+    state.s3FileName = iState().s3FileName
+    state.uploadUrl = iState().uploadUrl
+    state.uploadStatus = iState().uploadStatus
   }
 }
 
@@ -84,6 +100,9 @@ const actions = {
   setUploadUrl({commit}, payload){
     commit('setUploadUrl',payload)
   },
+  resetFileUpload({commit}){
+    commit('resetFileUpload')
+  },
   async getUploadUrl({commit}){
     const res = await GetUploadUrl()
     if(res.status === 200){
@@ -91,6 +110,45 @@ const actions = {
       commit('setUploadUrl', uploadUrl)
       const s3File = uploadUrl.split('?')[0].split('/').at(-1)
       commit('setS3FileName', s3File)
+    }
+  },
+  async uploadToBucket({state, commit}){
+    if(state.uploadUrl && state.imageFile){
+      const imageRes = await UploadToBucket(state.uploadUrl, state.imageFile)
+      console.log('imageRes :>> ', imageRes);
+      if(imageRes.status === 200){
+        commit('setUploadStatus', 'Uploaded')
+      } else {
+        commit('setUploadStatus', 'Error')
+      }
+    }
+  },
+  async submitListing({rootState, commit}){
+    const listingReq = {
+      listing: {
+        title: rootState.sell.title,
+        price: rootState.sell.price,
+        plant: rootState.sell.plant,
+        description: rootState.sell.description,
+        quantity: rootState.sell.quantity,
+        user_id: rootState.auth.user.id
+      }
+    }
+    const listingRes = await SubmitNewListing(listingReq)
+    console.log('listingRes :>> ', listingRes);
+    if(listingRes.status === 200) {
+      commit('setListingStatus', 'Submitted')
+      if(rootState.sell.uploadStatus === 'Uploaded'){
+        const listingImageReq = {
+          file_name: rootState.sell.s3FileName,
+          user_id: rootState.auth.user.id,
+          listing_id: listingRes.data.id
+        }
+        const listingImageRes = await AddImageToListing(listingImageReq)
+        if(listingImageRes.status === 200){
+          commit('setListingStatus', 'Submitted with image')
+        }
+      }
     }
   }
 }

@@ -1,15 +1,32 @@
 <template>
-  <vs-button shadow class="image-upload-container" @click="getUploadUrl">
-    <label for="image-upload" class="image-upload-label">
-      <i class="bx bx-image-add"></i> Add an image
-    </label>
-    <input
-      type="file"
-      accept="image/*"
-      id="image-upload"
-      @change="handleFileChange"
-    />
-  </vs-button>
+  <div>
+    <vs-button
+      shadow
+      class="image-upload-container"
+      @click="getUploadUrl"
+      :style="{
+        backgroundImage: 'url(' + imagePreview + ')',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }"
+    >
+      <label for="image-upload" class="image-upload-label" v-if="!imageFile">
+        <i class="bx bx-image-add"></i> Add an image
+      </label>
+      <input
+        type="file"
+        accept="image/*"
+        id="image-upload"
+        @change="handleFileChange"
+      />
+    </vs-button>
+    <div v-if="localFileName" class="image-info">
+      <vs-button icon border @click="resetFileUpload">
+        <i class="bx bx-trash"></i>
+      </vs-button>
+      <p>{{ localFileName }}</p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -19,16 +36,18 @@ export default {
   computed: {
     ...mapState({
       imageFile: (state) => state.sell.imageFile,
-      imageFileName: (state) => state.sell.imageFileName,
+      localFileName: (state) => state.sell.localFileName,
       imagePreview: (state) => state.sell.imagePreview,
     }),
   },
   methods: {
     ...mapActions("sell", [
       "setImageFile",
-      "setImageFileName",
+      "setLocalFileName",
       "setImagePreview",
       "getUploadUrl",
+      "resetFileUpload",
+      "uploadToBucket",
     ]),
     handleFileChange(e) {
       const file = e.target.files;
@@ -41,6 +60,7 @@ export default {
           this.setImagePreview(e.target.result);
         };
         reader.readAsDataURL(file[0]);
+        this.uploadToBucket();
       }
     },
   },
@@ -57,15 +77,20 @@ input[type="file"] {
   display: flex;
   border-radius: 15px;
   background: #ffffff;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .image-upload-label {
-  display: inline-block;
-  padding: 200px 100px;
+  padding: 170px 100px;
   cursor: pointer;
   font-size: 20px;
   color: #28164f;
+}
+.image-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 </style>

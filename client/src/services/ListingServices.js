@@ -14,3 +14,8 @@ export const SearchForListings = async (data) => {
   const res = await Client.post('/listings/search', data)
   return res
 }
+
+export const SubmitNewListing = async (data) => {
+  const res = await Client.post('/listings/new', data)
+  return res
+}

@@ -42,9 +42,7 @@
       maxlength="100"
     />
     <vs-button
-      flat
-      active
-      @click="handleSubmit"
+      @click="submitListing"
       :disabled="!title || !price || !quantity || !description || !plant"
     >
       Sell this plant
@@ -53,10 +51,11 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "SellForm",
   methods: {
-    handleSubmit() {},
+    ...mapActions("sell", ["submitListing"]),
     validateQuantity(e) {
       this.quantity = parseInt(e.target.value);
     },
