@@ -1,4 +1,4 @@
-const { Listing, Image, User } = require('../models')
+const { Listing, Image, User, CartListing } = require('../models')
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -103,11 +103,14 @@ const ArchiveListing = async (req, res) => {
 
 const DeleteListing = async (req, res) => {
   try {
+    const id = req.params.listing_id
+    const deletedCartsListing = await CartListing.destroy({ where : { listing_id: id }})
+    const deletedImage = await Image.destroy({ where : { listing_id: id }})
     const listing = await Listing.findOne({
-      where: { id: req.params.listing_id }
+      where: { id: id }
     })
     const deleted = await listing.destroy()
-    return res.send({ msg: "Deleted listing", delete: deleted})
+    return res.send({ msg: "Deleted listing", deleted: [deletedCartsListing, deletedImage, deleted ]})
   } catch (error) {
     return res.status(500).send({ error: error })
   }
