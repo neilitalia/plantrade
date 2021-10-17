@@ -31,4 +31,11 @@ CartRouter.get(
   controller.GetAllUserCarts
 )
 
+CartRouter.delete(
+  '/delete/:cart_id',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.DeleteCart
+)
+
 module.exports = CartRouter

@@ -45,4 +45,11 @@ UserRouter.put(
   controller.UpdateUser
 )
 
+UserRouter.delete(
+  '/forcedelete',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.ForceDeleteUser
+)
+
 module.exports = UserRouter

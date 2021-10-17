@@ -135,6 +135,17 @@ const SearchForListing = async (req, res) => {
   }
 }
 
+const GetListingsFromUser = async (req, res) => {
+  try {
+    const results = await Listing.findAll({
+      where: { user_id: req.params.user_id}
+    })
+    return res.send(results)
+  } catch (error) {
+    return res.status(500).send({ error: error })
+  }
+}
+
 module.exports = {
   GetAllListings,
   GetPopularListings,
@@ -143,5 +154,6 @@ module.exports = {
   UpdateListing,
   ArchiveListing,
   DeleteListing,
-  SearchForListing
+  SearchForListing,
+  GetListingsFromUser
 }

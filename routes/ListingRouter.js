@@ -18,6 +18,13 @@ ListingRouter.post(
   controller.SearchForListing
 )
 
+ListingRouter.get(
+  '/fromuser/:user_id',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.GetListingsFromUser
+)
+
 ListingRouter.post(
   '/new', 
   middleware.stripToken,

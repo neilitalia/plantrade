@@ -49,10 +49,21 @@ const GetAllUserCarts = async (req, res) => {
   }
 }
 
+const DeleteCart = async (req, res) => {
+  try {
+    const cart = await Cart.findOne({where: { id: req.params.cart_id}})
+    const deletedCart = await cart.destroy({returning: true})
+    return res.send({msg: "Deleted Cart", deleted: deletedCart, payload: req.params.id})
+  } catch (error) {
+    return res.status(500).send(error.message)
+    
+  }
+}
 
 module.exports = {
   GetAllCarts,
   GetCartById,
   CreateNewCart,
-  GetAllUserCarts
+  GetAllUserCarts,
+  DeleteCart
 }

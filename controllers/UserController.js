@@ -1,4 +1,5 @@
 const { User, Cart, Listing, Image, CartListing } = require('../models')
+const user = require('../models/user')
 
 const GetAllUsers = async (req, res) => {
   try {
@@ -105,11 +106,25 @@ const GetUserCartItems = async (req, res) => {
   }
 }
 
+const ForceDeleteUser = async (req ,res ) =>{
+  try {
+    const user = await User.findOne({
+      where: { id: req.body.user_id}
+    })
+    const deletedUser = await user.destroy()
+    return res.send({msg:"Deleted User", deleted: deletedUser})
+  } catch (error) {
+    return res.status(500).send({ error: error })
+    
+  }
+}
+
 module.exports = {
   GetAllUsers,
   GetUserById,
   GetUserByUsername,
   UpdateUser,
   GetUserCartItems,
-  GetUserCartsList
+  GetUserCartsList,
+  ForceDeleteUser
 }

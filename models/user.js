@@ -8,20 +8,16 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Listing, {
         as: 'listing_owner',
         foreignKey: 'user_id',
-        onDelete: 'CASCADE',
+        onDelete: 'cascade',
         hooks: true
       })
       User.hasMany(models.Cart, {
         as: 'cart_owner',
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE',
-        hooks: true
+        foreignKey: 'user_id'
       })
       User.hasMany(models.Image, {
         as: 'image_owner',
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE',
-        hooks: true
+        foreignKey: 'user_id'
       })
     }
   };

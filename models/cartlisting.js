@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     cart_id:  {
       type: DataTypes.INTEGER,
+      allowNull: false,
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
       references: {
@@ -20,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     listing_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
       references: {

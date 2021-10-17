@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     views: DataTypes.INTEGER,
     user_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
       references: {
