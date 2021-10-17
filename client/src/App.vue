@@ -44,6 +44,7 @@ export default {
       listingStatus: (state) => state.sell.listingStatus,
       profileStatus: (state) => state.profile.profileStatus,
       user: (state) => state.auth.user,
+      stripe: (state) => state.stripe.stripe,
     }),
   },
   watch: {
@@ -200,6 +201,22 @@ export default {
         });
       }
     },
+    stripe() {
+      if (this.stripe.url) {
+        this.$vs.notification({
+          classNotification: "checkout-notification",
+          duration: "3000",
+          progress: "auto",
+          color: "#17C964",
+          position: "bottom-center",
+          title: "Generating a secure checkout",
+          text: "Hang tight, we'll handle this for you.",
+          onDestroy: () => {
+            window.location.href = this.stripe.url;
+          },
+        });
+      }
+    },
   },
   methods: {
     ...mapActions("auth", ["checkSession"]),
@@ -339,5 +356,8 @@ button.vs-navbar__item {
 }
 div.vs-navbar__line {
   color: #28164f;
+}
+.checkout-notification {
+  color: #ffffff;
 }
 </style>
