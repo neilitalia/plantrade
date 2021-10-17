@@ -12,6 +12,11 @@ export const GetUserCartItems = async (userId) => {
 
 export const AddItemToUserCart = async (data) => {
   const res = await Client.post('/cartlisting/add', data)
+    .then((res) =>{
+    return res
+  }).catch((err)=>{
+    return err.response
+  })
   return res
 }
 
@@ -22,10 +27,20 @@ export const RemoveItemFromUserCart = async (data) => {
 
 export const IncrementCartItem = async (data) => {
   const res = await Client.put('/cartlisting/increment',data)
+    .then((res) =>{
+    return res
+  }).catch((err)=>{
+    return err.response
+  })
   return res
 }
 
 export const DecrementCartItem = async (data) => {
   const res = await Client.put('/cartlisting/decrement',data)
+    .then((res) =>{
+    return res
+  }).catch((err)=>{
+    return err.response
+  })
   return res
 }

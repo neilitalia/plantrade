@@ -8,6 +8,11 @@ export const GetUploadUrl = async () => {
 
 export const AddImageToListing = async (data) => {
   const res = await Client.post('/image/add', data)
+    .then((res) =>{
+    return res
+  }).catch((err)=>{
+    return err.response
+  })
   return res
 }
 
@@ -16,6 +21,11 @@ export const UploadToBucket = async (url, data) => {
     header: {
       "Content-Type": data.type
     }
+  })
+    .then((res) =>{
+    return res
+  }).catch((err)=>{
+    return err.response
   })
   return res
 }

@@ -17,7 +17,7 @@ const mutations = {
   setSelectedCart(state, payload) {
     state.selectedCart = payload
   },
-  setCartStatus({state}, payload) {
+  setCartStatus(state, payload) {
     state.cartStatus = payload
   }
 }
@@ -51,9 +51,9 @@ const actions = {
     }
     const res = await AddItemToUserCart(req)
     if(res.status === 200){
-      commit('setCartStatus',"Added")
+      commit('setCartStatus', 'Added')
     } else {
-      commit('setCartStatus',"Failed")
+      commit('setCartStatus', 'Failed')
     }
   },
   async removeFromCart({commit, state}, payload){

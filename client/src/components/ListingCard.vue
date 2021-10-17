@@ -97,8 +97,8 @@ export default {
       }
     },
     formatListingDescription() {
-      return this.$props.listing.description.length > 45
-        ? this.$props.listing.description.substr(0, 45) + "..."
+      return this.$props.listing.description.length > 40
+        ? this.$props.listing.description.substr(0, 40) + "..."
         : this.$props.listing.description;
     },
   },

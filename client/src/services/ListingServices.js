@@ -12,10 +12,20 @@ export const GetListingById = async (id) => {
 
 export const SearchForListings = async (data) => {
   const res = await Client.post('/listings/search', data)
+    .then((res) =>{
+    return res
+  }).catch((err)=>{
+    return err.response
+  })
   return res
 }
 
 export const SubmitNewListing = async (data) => {
   const res = await Client.post('/listings/new', data)
+    .then((res) =>{
+    return res
+  }).catch((err)=>{
+    return err.response
+  })
   return res
 }
