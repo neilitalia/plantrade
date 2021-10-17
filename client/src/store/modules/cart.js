@@ -29,6 +29,9 @@ const actions = {
   setUserCartsList({commit}, payload) {
     commit('setUserCartsList', payload)
   },
+  setSelectedCart({commit}, payload) {
+    commit('selectedCart', payload)
+  },
   setCartStatus({commit}, payload){
     commit('setCartStatus', payload)
   },
@@ -58,18 +61,19 @@ const actions = {
   },
   async removeFromCart({commit, state}, payload){
     const req = {
-        "cart_id": payload.cartId,
-        "listing_id": payload.listingId
+      "cart_id": payload.cartId,
+      "listing_id": payload.listingId
     }
     const res = await RemoveItemFromUserCart(req)
     if (res.status === 200){
       commit("setCartStatus", "Removed")
-      const newCart = [...state.userCarts.cart_owner].forEach(cart => {
+      const newCart = [...state.userCarts.cart_owner].map(cart => {
         if(cart.id === res.data.payload.cart_id){
-          cart.cart_listing = cart.cart_listing.filter(listing => {
+          return {...cart, cart_listing: cart.cart_listing.filter(listing => {
             return listing.id !== res.data.payload.listing_id
-          })
+          })}
         }
+        return cart
       })
       commit('setUserCarts', {...state.userCarts, cart_owner: newCart})
     } else {

@@ -23,11 +23,17 @@
           <h2>Your {{ cart.name }} is lonely :( No items yet</h2>
         </div>
         <div v-else>
-          <vs-card-group>
-            <div v-for="listing in cart.cart_listing" :key="listing.id">
+          <!-- <vs-card-group> -->
+          <transition-group name="list" tag="vs-card-group">
+            <div
+              v-for="listing in cart.cart_listing"
+              :key="listing.id"
+              class="list-item"
+            >
               <ListingCard :listing="listing" :inCart="true" :cart="cart" />
             </div>
-          </vs-card-group>
+          </transition-group>
+          <!-- </vs-card-group> -->
         </div>
       </vs-col>
     </vs-row>
@@ -56,4 +62,19 @@ export default {
 </script>
 
 <style>
+.list-enter-active,
+.list-leave-active {
+  position: absolute;
+  transition: all 0.5s;
+  z-index: -10;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-item {
+  transition: all 0.5s;
+  display: inline-block;
+}
 </style>

@@ -62,10 +62,10 @@
                 <span class="span">Add to cart</span>
               </vs-button>
               <vs-select
+                v-if="authenticated"
                 state="dark"
                 placeholder="Select cart"
                 v-model="selectedCartID"
-                v-if="authenticated"
               >
                 <vs-option
                   v-for="cart in userCartsList.cart_owner"
@@ -99,6 +99,7 @@ export default {
       selectedListingDetails: (state) => state.listings.selectedListingDetails,
       authenticated: (state) => state.auth.authenticated,
       userCartsList: (state) => state.cart.userCartsList,
+      userCarts: (state) => state.cart.userCarts,
     }),
     openListingDialog: {
       get() {

@@ -104,7 +104,6 @@ export default {
           },
         });
       } else if (this.cartStatus === "Removed") {
-        this.$router.push("/");
         this.$vs.notification({
           progress: "auto",
           color: "#B5E27A",

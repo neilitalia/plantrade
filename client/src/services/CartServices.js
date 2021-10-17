@@ -22,6 +22,11 @@ export const AddItemToUserCart = async (data) => {
 
 export const RemoveItemFromUserCart = async (data) => {
   const res = await Client.delete('/cartlisting/remove', {data})
+  .then((res) =>{
+    return res
+  }).catch((err)=>{
+    return err.response
+  })
   return res
 }
 
