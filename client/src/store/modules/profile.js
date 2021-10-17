@@ -1,9 +1,12 @@
-import { GetListingsByUser } from "../../services/ListingServices"
+import { GetListingsByUser, DeleteListing } from "../../services/ListingServices"
 import { GetUserById } from "../../services/UserServices"
 
 const state = {
   userDetails: null,
-  userListings: []
+  userListings: [],
+  openDeleteDialog: false,
+  listingIdToDelete: null,
+  profileStatus: null
 }
 
 const mutations = {
@@ -12,6 +15,15 @@ const mutations = {
   },
   setUserListings(state, payload){
     state.userListings = payload
+  },
+  toggleDeleteDialog(state){
+    state.openDeleteDialog = !state.openDeleteDialog
+  },
+  setListingIdToDelete(state, payload){
+    state.listingIdToDelete = payload
+  },
+  setProfileStatus(state, payload){
+    state.profileStatus = payload
   }
 }
 
@@ -21,6 +33,15 @@ const actions = {
   },
   setUserListings({commit}, payload){
     commit('setUserListings', payload)
+  },
+  toggleDeleteDialog({commit}){
+    commit('toggleDeleteDialog')
+  },
+  setListingIdToDelete({commit}, payload){
+    commit('setListingIdToDelete', payload)
+  },
+  resetListingIdToDelete({commit}){
+    commit('setListingIdToDelete', null)
   },
   async getUserInfo({rootState, commit}){
     const res = await GetUserById(rootState.auth.user.id)
@@ -32,6 +53,14 @@ const actions = {
     const res = await GetListingsByUser(rootState.auth.user.id)
     if(res.status === 200){
       commit('setUserListings', res.data)
+    }
+  },
+  async deleteListing({state, commit}){
+    const res = await DeleteListing(state.listingIdToDelete)
+    if(res.status === 200){
+      commit('setProfileStatus','Listing Deleted')
+    } else {
+      commit('setProfileStatus','Listing Delete Failed')
     }
   }
 }

@@ -87,7 +87,7 @@
               vs-align="center"
               w="4"
             >
-              <ListingCard :listing="listing" />
+              <ListingCard :listing="listing" :inListings="true" />
             </vs-col>
           </vs-row>
         </vs-col>

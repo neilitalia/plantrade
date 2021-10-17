@@ -138,7 +138,11 @@ const SearchForListing = async (req, res) => {
 const GetListingsFromUser = async (req, res) => {
   try {
     const results = await Listing.findAll({
-      where: { user_id: req.params.user_id}
+      where: { user_id: req.params.user_id },
+      include: {
+        model: Image,
+        as: 'image_listing'
+      },
     })
     return res.send(results)
   } catch (error) {

@@ -27,15 +27,28 @@
         <i class="bx bx-show"></i>
         <span class="span">{{ listing.views }}</span>
       </vs-button>
-      <vs-button
-        v-if="inCart"
-        class="btn-chat"
-        warn
-        icon
-        @click="removeFromCart({ cartId: cart.id, listingId: listing.id })"
-      >
-        <i class="bx bx-trash"></i>
-      </vs-button>
+      <vs-tooltip v-if="inCart">
+        <vs-button
+          class="btn-chat"
+          warn
+          icon
+          @click="removeFromCart({ cartId: cart.id, listingId: listing.id })"
+        >
+          <i class="bx bx-trash"></i>
+        </vs-button>
+        <template #tooltip> Remove from cart </template>
+      </vs-tooltip>
+      <vs-tooltip v-if="inProfile">
+        <vs-button
+          class="btn-chat"
+          danger
+          icon
+          @click="setListingIdToDelete(listing.id), toggleDeleteDialog()"
+        >
+          <i class="bx bx-trash"></i>
+        </vs-button>
+        <template #tooltip> Delete Listing </template>
+      </vs-tooltip>
       <vs-button-group v-if="inCart">
         <vs-button
           shadow
@@ -63,16 +76,19 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { AWS_BASE_URL, IMAGE_PLACEHOLDER_URL } from "../globals";
 export default {
   name: "ListingCard",
-  props: ["listing", "inCart", "cart"],
+  props: ["inListings", "listing", "inCart", "cart", "inProfile"],
   data: () => ({
     awsBaseUrl: AWS_BASE_URL,
     placeholder: IMAGE_PLACEHOLDER_URL,
   }),
   computed: {
+    ...mapState({
+      activePage: (state) => state.navigation.activePage,
+    }),
     openListingDialog: {
       get() {
         return this.$store.state.listings.openListingDialog;
@@ -84,13 +100,14 @@ export default {
   },
   methods: {
     ...mapActions("listings", ["setSelectedListing", "getListingDetails"]),
+    ...mapActions("profile", ["toggleDeleteDialog", "setListingIdToDelete"]),
     ...mapActions("cart", [
       "removeFromCart",
       "incrementCartItem",
       "decrementCartItem",
     ]),
     handleCardClick(id) {
-      if (!this.$props.inCart) {
+      if (this.$props.inListings) {
         this.setSelectedListing(id);
         this.getListingDetails(id);
         this.$store.commit("listings/toggleListingDialog");

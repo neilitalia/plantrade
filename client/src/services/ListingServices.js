@@ -34,3 +34,13 @@ export const SubmitNewListing = async (data) => {
   })
   return res
 }
+
+export const DeleteListing = async (listing_id) => {
+  const res = await Client.delete(`/listings/delete/${listing_id}`)
+    .then((res) =>{
+    return res
+  }).catch((err)=>{
+    return err.response
+  })
+  return res
+}

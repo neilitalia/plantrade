@@ -42,6 +42,7 @@ export default {
       cartStatus: (state) => state.cart.cartStatus,
       authenticated: (state) => state.auth.authenticated,
       listingStatus: (state) => state.sell.listingStatus,
+      profileStatus: (state) => state.profile.profileStatus,
       user: (state) => state.auth.user,
     }),
   },
@@ -163,11 +164,39 @@ export default {
         });
       }
     },
+    profileStatus() {
+      if (this.profileStatus === "Listing Deleted") {
+        this.$vs.notification({
+          progress: "auto",
+          color: "#B5E27A",
+          position: "bottom-center",
+          title: "Poof!",
+          text: "It's off our website.",
+          onDestroy: () => {
+            this.setProfileStatus(null);
+          },
+        });
+      } else if (this.profileStatus === "Failed") {
+        this.$vs.notification({
+          progress: "auto",
+          position: "bottom-center",
+          title: "Oops!",
+          text: "Something went wrong, try again.",
+          onDestroy: () => {
+            this.setProfileStatus(null);
+          },
+        });
+      }
+    },
   },
   methods: {
     ...mapActions("auth", ["checkSession"]),
     ...mapActions("sell", ["setListingStatus"]),
-    ...mapActions("profile", ["getUserInfo", "getListingsByUser"]),
+    ...mapActions("profile", [
+      "getUserInfo",
+      "getListingsByUser",
+      "setProfileStatus",
+    ]),
     ...mapActions("cart", [
       "getUserCartItems",
       "getUserCartsList",
