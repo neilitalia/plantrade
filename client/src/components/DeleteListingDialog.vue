@@ -5,8 +5,9 @@
     </template>
     <div class="con-content">
       <p>
-        This will take your listing off our market. Feel free to post a new
-        listing when you're ready to sell this again.
+        This will take your listing off our market and off of other people's
+        carts and wishlists. You can post a new listing when you're ready to
+        sell this again.
       </p>
     </div>
     <template #footer>
@@ -49,17 +50,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.con-footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-.con-content {
-  width: 400px;
-}
-.con-content > p {
-  font-size: 0.8rem;
-  padding: 0px 10px;
-}
+<style>
 </style>

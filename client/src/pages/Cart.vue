@@ -23,7 +23,10 @@
           <h2># {{ cart.id }}</h2>
         </div>
         <div v-if="!cart.cart_listing.length">
-          <h2>Your {{ cart.name }} is lonely :( No items yet</h2>
+          <h2>Your {{ cart.name }} cart is lonely :( No items yet</h2>
+          <vs-button border class="mr-20" @click="checkOut(cart.id)">
+            <i class="bx bx-trash-alt"></i>&nbsp;Delete list
+          </vs-button>
         </div>
         <div v-else>
           <transition-group name="list" tag="vs-card-group">
@@ -47,15 +50,30 @@
         </div>
       </vs-col>
     </vs-row>
+    <vs-row class="mb-15vh">
+      <vs-col
+        vs-type="flex"
+        vs-justify="center"
+        vs-align="center"
+        offset="2"
+        w="8"
+      >
+        <vs-button size="xl" @click="toggleNewCartDialog"
+          ><i class="bx bx-list-plus"></i>&nbsp;Create a new list
+        </vs-button>
+      </vs-col>
+    </vs-row>
+    <NewCartDialog />
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
 import ListingCard from "../components/ListingCard.vue";
+import NewCartDialog from "../components/NewCartDialog";
 export default {
   name: "Cart",
-  components: { ListingCard },
+  components: { ListingCard, NewCartDialog },
   mounted() {
     this.setActivePage("Cart");
   },
@@ -67,7 +85,7 @@ export default {
   methods: {
     ...mapActions("navigation", ["setActivePage"]),
     ...mapActions("stripe", ["checkout"]),
-    ...mapActions("cart", ["getUserCartItems"]),
+    ...mapActions("cart", ["getUserCartItems", "toggleNewCartDialog"]),
     getSubTotal(items) {
       const rawSubTotal = items.reduce((acc, item) => {
         return acc + item.price * item.cart_info.quantity;

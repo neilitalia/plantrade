@@ -1,4 +1,4 @@
-const { Cart, User, Listing, Image } = require('../models')
+const { Cart, User, Listing, Image, CartListing } = require('../models')
 
 const GetAllCarts = async (req, res) => {
   try {
@@ -77,9 +77,11 @@ const GetAllCartItems = async (req, res) => {
 
 const DeleteCart = async (req, res) => {
   try {
-    const cart = await Cart.findOne({where: { id: req.params.cart_id}})
+    const id = req.params.cart_id
+    const deletedCartListings = CartListing.destroy({ where: { cart_id: id} })
+    const cart = await Cart.findOne({where: { id: id }})
     const deletedCart = await cart.destroy({returning: true})
-    return res.send({msg: "Deleted Cart", deleted: deletedCart, payload: req.params.id})
+    return res.send({msg: "Deleted Cart", deleted: [deletedCart, deletedCartListings]})
   } catch (error) {
     return res.status(500).send(error.message)
   }

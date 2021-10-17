@@ -3,7 +3,6 @@ import Home from './pages/Home'
 import Listings from './pages/Listings'
 import Profile from './pages/Profile'
 import Cart from './pages/Cart'
-import Checkout from './pages/Checkout'
 import Sell from './pages/Sell'
 import store from './store'
 
@@ -25,8 +24,7 @@ const routes = [
   { path: '/listings', component: Listings, name: 'Listings'},
   { path: '/profile', component: Profile, name: 'Profile', meta: { auth: true }},
   { path: '/sell', component: Sell, name: 'Sell', meta: { auth: true }},
-  { path: '/cart', component: Cart, name: 'Cart', meta: { auth: true }},
-  { path: '/checkout', component: Checkout, name: 'Checkout', meta: { auth: true }}
+  { path: '/cart', component: Cart, name: 'Cart', meta: { auth: true }}
 ]
 
 const router = new VueRouter({ routes, mode: 'history', scrollBehavior })

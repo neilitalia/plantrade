@@ -126,6 +126,16 @@ export default {
             this.setCartStatus(null);
           },
         });
+      } else if (this.cartStatus === "New Cart Created") {
+        this.$vs.notification({
+          progress: "auto",
+          color: "#B5E27A",
+          position: "bottom-center",
+          title: "We made a new list for you :)",
+          onDestroy: () => {
+            this.setCartStatus(null);
+          },
+        });
       }
     },
     listingStatus() {
@@ -303,6 +313,18 @@ h1 {
 }
 .no-pointer {
   pointer-events: none;
+}
+.con-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.con-content {
+  width: 400px;
+}
+.con-content > p {
+  font-size: 0.8rem;
+  padding: 0px 10px;
 }
 div.vs-card {
   box-shadow: 0px 8px 20px #1f1d1e23;

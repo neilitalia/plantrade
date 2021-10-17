@@ -28,13 +28,6 @@
           Cart
         </vs-navbar-item>
         <vs-navbar-item
-          to="/checkout"
-          :active="activePage === 'Checkout'"
-          v-if="authenticated"
-        >
-          Checkout
-        </vs-navbar-item>
-        <vs-navbar-item
           to="/profile"
           :active="activePage === 'Profile'"
           v-if="authenticated"

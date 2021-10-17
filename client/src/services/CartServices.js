@@ -5,6 +5,11 @@ export const GetUserCartsList = async (userId) => {
   return res
 }
 
+export const CreateNewCartList = async (data) => {
+  const res = await Client.post('/cart/new', data)
+  return res
+}
+
 export const GetUserCartItems = async (userId) => {
   const res = await Client.get(`/users/cartsitems/${userId}`)
   return res

@@ -1,10 +1,12 @@
-import { GetUserCartItems, AddItemToUserCart, GetUserCartsList, RemoveItemFromUserCart, IncrementCartItem, DecrementCartItem } from "../../services/CartServices";
+import { GetUserCartItems, AddItemToUserCart, GetUserCartsList, RemoveItemFromUserCart, IncrementCartItem, DecrementCartItem, CreateNewCartList } from "../../services/CartServices";
 
 const state = () => ({
   userCarts: [],
   userCartsList: [],
   selectedCart: false,
-  cartStatus: null
+  cartStatus: null,
+  openNewCartDialog: false,
+  newCartName: ''
 })
 
 const mutations = {
@@ -19,6 +21,12 @@ const mutations = {
   },
   setCartStatus(state, payload) {
     state.cartStatus = payload
+  },
+  toggleNewCartDialog(state){
+    state.openNewCartDialog = !state.openNewCartDialog
+  },
+  setNewCartName(state, payload){
+    state.newCartName = payload
   }
 }
 
@@ -34,6 +42,20 @@ const actions = {
   },
   setCartStatus({commit}, payload){
     commit('setCartStatus', payload)
+  },
+  toggleNewCartDialog({commit}){
+    commit('toggleNewCartDialog')
+  },
+  setNewCartName({commit}, payload){
+    commit('setNewCartName', payload)
+  },
+  async createNewCart({rootState, commit}){
+    const res = await CreateNewCartList({name: rootState.cart.newCartName, user_id: rootState.auth.user.id})
+    if(res.status === 200){
+      commit('setCartStatus', 'New Cart Created')
+    } else {
+      commit('setCartStatus', 'Failed')
+    }
   },
   async getUserCartsList({rootState, commit}){
     const res = await GetUserCartsList(rootState.auth.user.id)
