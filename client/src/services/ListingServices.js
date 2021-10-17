@@ -10,6 +10,11 @@ export const GetListingById = async (id) => {
   return res
 }
 
+export const GetListingsByUser = async (user_id) => {
+  const res = await Client.get(`/listings/fromuser/${user_id}`)
+  return res
+}
+
 export const SearchForListings = async (data) => {
   const res = await Client.post('/listings/search', data)
     .then((res) =>{

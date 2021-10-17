@@ -1,4 +1,5 @@
-const { Cart, User, Listing } = require('../models')
+const { Cart, User } = require('../models')
+const { stripe } = require('./Stripe')
 
 const GetAllCarts = async (req, res) => {
   try {
@@ -56,7 +57,42 @@ const DeleteCart = async (req, res) => {
     return res.send({msg: "Deleted Cart", deleted: deletedCart, payload: req.params.id})
   } catch (error) {
     return res.status(500).send(error.message)
-    
+  }
+}
+
+const Checkout = async (req, res) => {
+  try {
+    const session = await stripe.checkout.sessions.create({
+      success_url: "http://localhost:8080/success",
+      cancel_url: "http://localhost:8080/cancel",
+      payment_method_types: ['card'],
+      line_items: [
+        { price_data: {
+          currency: 'USD',
+          product_data: {
+            name: 'OnlyFlanks 1time',
+            description: 'test req',
+            tax_code: 'txcd_99999999'
+          },
+          unit_amount: 1299
+        },
+        quantity: 3},
+        { price_data: {
+          currency: 'USD',
+          product_data: {
+            name: 'Just4Flans 1time',
+            description: 'test req',
+            tax_code: 'txcd_99999999'
+          },
+          unit_amount: 1599
+        },
+        quantity: 2}
+      ],
+      mode: 'payment'
+    })
+    res.send(session)
+  } catch (error) {
+    return res.status(500).send(error.message)
   }
 }
 
@@ -65,5 +101,6 @@ module.exports = {
   GetCartById,
   CreateNewCart,
   GetAllUserCarts,
-  DeleteCart
+  DeleteCart,
+  Checkout
 }

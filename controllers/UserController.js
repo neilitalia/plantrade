@@ -1,5 +1,4 @@
-const { User, Cart, Listing, Image, CartListing } = require('../models')
-const user = require('../models/user')
+const { User, Cart, Listing, Image } = require('../models')
 
 const GetAllUsers = async (req, res) => {
   try {
@@ -108,8 +107,9 @@ const GetUserCartItems = async (req, res) => {
 
 const ForceDeleteUser = async (req ,res ) =>{
   try {
-    const user = await User.findOne({
-      where: { id: req.body.user_id}
+    const user = await User.destroy({
+      where: { id: req.body.user_id},
+      cascade: true
     })
     const deletedUser = await user.destroy()
     return res.send({msg:"Deleted User", deleted: deletedUser})

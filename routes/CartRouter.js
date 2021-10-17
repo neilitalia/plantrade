@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const controller = require('../controllers/CartController')
 const middleware = require('../middleware')
+const stripe = require('../controllers/Stripe')
 const CartRouter = Router()
 
 CartRouter.get(
@@ -22,6 +23,13 @@ CartRouter.post(
   middleware.stripToken,
   middleware.verifyToken,
   controller.CreateNewCart
+)
+
+CartRouter.post(
+  '/checkout',
+  middleware.stripToken,
+  middleware.verifyToken,
+  stripe.Checkout
 )
 
 CartRouter.get(

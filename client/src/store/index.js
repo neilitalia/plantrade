@@ -7,6 +7,7 @@ import registration from './modules/registration'
 import listings from './modules/listings'
 import cart from './modules/cart'
 import sell from './modules/sell'
+import profile from './modules/profile'
 
 Vue.use(Vuex)
 
@@ -21,7 +22,8 @@ export default new Vuex.Store({
     registration,
     listings,
     cart,
-    sell
+    sell,
+    profile
   },
   strict: debug
 })

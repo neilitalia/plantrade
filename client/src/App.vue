@@ -30,6 +30,8 @@ export default {
         if (this.authenticated) {
           this.getUserCartItems();
           this.getUserCartsList();
+          this.getUserInfo();
+          this.getListingsByUser();
         }
       });
     }
@@ -165,6 +167,7 @@ export default {
   methods: {
     ...mapActions("auth", ["checkSession"]),
     ...mapActions("sell", ["setListingStatus"]),
+    ...mapActions("profile", ["getUserInfo", "getListingsByUser"]),
     ...mapActions("cart", [
       "getUserCartItems",
       "getUserCartsList",
