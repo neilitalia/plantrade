@@ -4,6 +4,8 @@ import Listings from './pages/Listings'
 import Profile from './pages/Profile'
 import Cart from './pages/Cart'
 import Sell from './pages/Sell'
+import Success from './pages/Success'
+import Cancel from './pages/Cancel'
 import store from './store'
 
 const scrollBehavior = (to, from, savedPosition) => {
@@ -22,6 +24,8 @@ const scrollBehavior = (to, from, savedPosition) => {
 const routes = [
   { path: '/', component: Home, name: 'Home' },
   { path: '/listings', component: Listings, name: 'Listings'},
+  { path: '/success', component: Success, name: 'Success'},
+  { path: '/cancel', component: Cancel, name: 'Cancel'},
   { path: '/profile', component: Profile, name: 'Profile', meta: { auth: true }},
   { path: '/sell', component: Sell, name: 'Sell', meta: { auth: true }},
   { path: '/cart', component: Cart, name: 'Cart', meta: { auth: true }}
