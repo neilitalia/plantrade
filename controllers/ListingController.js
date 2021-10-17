@@ -103,11 +103,11 @@ const ArchiveListing = async (req, res) => {
 
 const DeleteListing = async (req, res) => {
   try {
-    const deletedListing = await Listing.destroy({
-      where: { id: req.params.listing_id },
-      returning: true
+    const listing = await Listing.findOne({
+      where: { id: req.params.listing_id }
     })
-    return res.send({ msg: "Deleted listing", delete: deletedListing})
+    const deleted = await listing.destroy()
+    return res.send({ msg: "Deleted listing", delete: deleted})
   } catch (error) {
     return res.status(500).send({ error: error })
   }

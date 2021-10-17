@@ -19,21 +19,21 @@ module.exports = (sequelize, DataTypes) => {
     file_name: DataTypes.STRING,
     user_id: {
       type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
       references: {
         model: 'users',
         key: 'id'
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
+      }
     },
     listing_id: {
       type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
       references: {
         model: 'listings',
         key: 'id'
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
+      }
     },
   }, {
     sequelize,

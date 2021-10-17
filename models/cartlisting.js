@@ -11,21 +11,21 @@ module.exports = (sequelize, DataTypes) => {
     },
     cart_id:  {
       type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
       references: {
         model: 'cart',
-        key: 'cart_id'
+        key: 'id'
       },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
     },
     listing_id: {
       type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
       references: {
         model: 'listings',
-        key: 'listing_id'
+        key: 'id'
       },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
     },
   }, {
     indexes: [

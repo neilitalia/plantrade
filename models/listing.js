@@ -5,6 +5,12 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Listing extends Model {
     static associate(models) {
+      Listing.hasMany(models.Image, {
+        as: 'image_listing',
+        foreignKey: 'listing_id',
+        onDelete: 'CASCADE',
+        hooks: true
+      })
       Listing.belongsTo(models.User, {
         as: 'listing_owner',
         foreignKey: 'user_id'
@@ -12,10 +18,6 @@ module.exports = (sequelize, DataTypes) => {
       Listing.belongsToMany(models.Cart, {
         through: models.CartListing,
         as: 'cart_listing',
-        foreignKey: 'listing_id'
-      })
-      Listing.hasMany(models.Image, {
-        as: 'image_listing',
         foreignKey: 'listing_id'
       })
     }
@@ -38,12 +40,12 @@ module.exports = (sequelize, DataTypes) => {
     views: DataTypes.INTEGER,
     user_id: {
       type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
       references: {
         model: 'users',
         key: 'id'
-      },
-      onDelete: 'cascade',
-      onUpdate: 'cascade'
+      }
     },
   }, {
     sequelize,
