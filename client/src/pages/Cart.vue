@@ -18,12 +18,14 @@
         offset="2"
         w="8"
       >
-        <h2>List: {{ cart.name }}</h2>
+        <div class="cart-info">
+          <h2>List: {{ cart.name }}</h2>
+          <h2># {{ cart.id }}</h2>
+        </div>
         <div v-if="!cart.cart_listing.length">
           <h2>Your {{ cart.name }} is lonely :( No items yet</h2>
         </div>
         <div v-else>
-          <!-- <vs-card-group> -->
           <transition-group name="list" tag="vs-card-group">
             <div
               v-for="listing in cart.cart_listing"
@@ -33,7 +35,15 @@
               <ListingCard :listing="listing" :inCart="true" :cart="cart" />
             </div>
           </transition-group>
-          <!-- </vs-card-group> -->
+          <div class="subtotal-checkout">
+            <vs-button border class="mr-20" @click="checkOut(cart.id)">
+              <i class="bx bx-cart"></i>&nbsp;Checkout
+            </vs-button>
+            <vs-button border class="mr-20" @click="checkOut(cart.id)">
+              <i class="bx bx-trash-alt"></i>&nbsp;Delete list
+            </vs-button>
+            <p>Subtotal: ${{ getSubTotal(cart.cart_listing) }}</p>
+          </div>
         </div>
       </vs-col>
     </vs-row>
@@ -56,25 +66,29 @@ export default {
   },
   methods: {
     ...mapActions("navigation", ["setActivePage"]),
+    ...mapActions("stripe", ["checkout"]),
     ...mapActions("cart", ["getUserCartItems"]),
+    getSubTotal(items) {
+      const rawSubTotal = items.reduce((acc, item) => {
+        return acc + item.price * item.cart_info.quantity;
+      }, 0);
+      return parseFloat(rawSubTotal).toFixed(2);
+    },
   },
 };
 </script>
 
 <style>
-.list-enter-active,
-.list-leave-active {
-  position: absolute;
-  transition: all 0.5s;
-  z-index: -10;
+.subtotal-checkout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
 }
-.list-enter,
-.list-leave-to {
-  opacity: 0;
-  transform: translateY(30px);
-}
-.list-item {
-  transition: all 0.5s;
-  display: inline-block;
+.cart-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

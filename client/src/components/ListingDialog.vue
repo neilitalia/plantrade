@@ -72,8 +72,9 @@
                   :key="cart.id"
                   :label="cart.name"
                   :value="cart.id"
-                  >{{ cart.name }}</vs-option
                 >
+                  {{ `${cart.name} #${cart.id}` }}
+                </vs-option>
               </vs-select>
             </vs-row>
           </vs-col>

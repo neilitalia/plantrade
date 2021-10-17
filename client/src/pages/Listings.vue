@@ -69,7 +69,7 @@
       </vs-button-group>
       <vs-button border> Update Results</vs-button>
     </vs-row>
-    <vs-row>
+    <vs-row class="mb-15vh">
       <vs-row>
         <vs-col
           vs-type="flex"

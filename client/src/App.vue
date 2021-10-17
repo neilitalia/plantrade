@@ -216,6 +216,9 @@ h1 {
 .mr-10vw {
   margin-right: 10vw;
 }
+.mr-20 {
+  margin-right: 20px;
+}
 .pb-15vh {
   padding-bottom: 15vh;
 }
@@ -253,6 +256,21 @@ h1 {
   width: 100%;
   left: 0;
   transition: all 0.3s ease;
+}
+.list-enter-active,
+.list-leave-active {
+  position: absolute;
+  transition: all 0.5s;
+  z-index: -10;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-item {
+  transition: all 0.5s;
+  display: inline-block;
 }
 .no-pointer {
   pointer-events: none;

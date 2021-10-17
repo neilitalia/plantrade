@@ -5,9 +5,7 @@ dotenv.config()
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
 
 const BASE_URL =  process.env.NODE_ENV === 'production' ? process.env.DEPLOYED_URL : "http://localhost:8080"
-const AWS_BASE_URL = "https://plantrade.s3.us-east-2.amazonaws.com/"
 const IMAGE_PLACEHOLDER_URL = "https://images.unsplash.com/photo-1562619227-71c891fd2799?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2626&q=80"
-const DISCOUNT_CODE = [...process.env.DISCOUNT_CODE]
 
 const getAllCartItems = async (id) => {
   try {
@@ -44,7 +42,7 @@ const getLineItems = async (id) => {
       product_data: {
         name: item.title,
         description: item.description,
-        images: item.image_listing.length ? [`${AWS_BASE_URL}${item.image_listing[0].file_name}`] : [`${IMAGE_PLACEHOLDER_URL}`],
+        images: [IMAGE_PLACEHOLDER_URL],
         tax_code: 'txcd_99999999'
       },
       unit_amount: parseInt(item.price*100)

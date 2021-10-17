@@ -49,3 +49,13 @@ export const DecrementCartItem = async (data) => {
   })
   return res
 }
+
+export const CheckOut = async (data) => {
+  const res = await Client.post('/cart/checkout',data)
+    .then((res) =>{
+    return res
+  }).catch((err)=>{
+    return err.response
+  })
+  return res
+}
