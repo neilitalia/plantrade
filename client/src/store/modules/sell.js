@@ -66,6 +66,9 @@ const mutations = {
     state.s3FileName = iState().s3FileName
     state.uploadUrl = iState().uploadUrl
     state.uploadStatus = iState().uploadStatus
+  },
+  resetSellForm(state){
+    Object.assign(state, iState())
   }
 }
 
@@ -115,7 +118,6 @@ const actions = {
   async uploadToBucket({state, commit}){
     if(state.uploadUrl && state.imageFile){
       const imageRes = await UploadToBucket(state.uploadUrl, state.imageFile)
-      console.log('imageRes :>> ', imageRes);
       if(imageRes.status === 200){
         commit('setUploadStatus', 'Uploaded')
       } else {
@@ -135,9 +137,7 @@ const actions = {
       }
     }
     const listingRes = await SubmitNewListing(listingReq)
-    console.log('listingRes :>> ', listingRes);
     if(listingRes.status === 200) {
-      commit('setListingStatus', 'Submitted')
       if(rootState.sell.uploadStatus === 'Uploaded'){
         const listingImageReq = {
           file_name: rootState.sell.s3FileName,
@@ -148,7 +148,12 @@ const actions = {
         if(listingImageRes.status === 200){
           commit('setListingStatus', 'Submitted with image')
         }
+      } else {
+        commit('setListingStatus', 'Submitted')
       }
+      commit('resetSellForm')
+    } else {
+      commit('setListingStatus', 'Failed')
     }
   }
 }

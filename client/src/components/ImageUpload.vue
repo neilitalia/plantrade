@@ -24,7 +24,7 @@
       <vs-button icon border @click="resetFileUpload">
         <i class="bx bx-trash"></i>
       </vs-button>
-      <p>{{ localFileName }}</p>
+      <p>{{ formattedLocalFileName() }}</p>
     </div>
   </div>
 </template>
@@ -62,6 +62,11 @@ export default {
         reader.readAsDataURL(file[0]);
         this.uploadToBucket();
       }
+    },
+    formattedLocalFileName() {
+      let extension = this.localFileName.split(".").at(-1);
+      let name = this.localFileName.split("").slice(0, 8).join("");
+      return `${name}...${extension}`;
     },
   },
 };

@@ -39,6 +39,7 @@ export default {
       loginStatus: (state) => state.auth.loginStatus,
       cartStatus: (state) => state.cart.cartStatus,
       authenticated: (state) => state.auth.authenticated,
+      listingStatus: (state) => state.sell.listingStatus,
       user: (state) => state.auth.user,
     }),
   },
@@ -125,9 +126,46 @@ export default {
         });
       }
     },
+    listingStatus() {
+      if (this.listingStatus === "Submitted with image") {
+        this.$router.push("/listings");
+        this.$vs.notification({
+          progress: "auto",
+          color: "#B5E27A",
+          position: "bottom-center",
+          title: "We got your listing!",
+          text: "Thanks for adding a pretty picture.",
+          onDestroy: () => {
+            this.setListingStatus(null);
+          },
+        });
+      } else if (this.listingStatus === "Submitted") {
+        this.$router.push("/listings");
+        this.$vs.notification({
+          progress: "auto",
+          color: "#B5E27A",
+          position: "bottom-center",
+          title: "We got your listing!",
+          onDestroy: () => {
+            this.setListingStatus(null);
+          },
+        });
+      } else if (this.listingStatus === "Failed") {
+        this.$vs.notification({
+          progress: "auto",
+          position: "bottom-center",
+          title: "Oops!",
+          text: "Something went wrong, try again.",
+          onDestroy: () => {
+            this.setListingStatus(null);
+          },
+        });
+      }
+    },
   },
   methods: {
     ...mapActions("auth", ["checkSession"]),
+    ...mapActions("sell", ["setListingStatus"]),
     ...mapActions("cart", [
       "getUserCartItems",
       "getUserCartsList",
