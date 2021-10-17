@@ -16,7 +16,7 @@
       />
     </template>
     <template #text>
-      <p>{{ listing.description }}</p>
+      <p>{{ formatListingDescription() }}</p>
     </template>
     <template #interactions>
       <vs-button success icon>
@@ -95,6 +95,11 @@ export default {
         this.getListingDetails(id);
         this.$store.commit("listings/toggleListingDialog");
       }
+    },
+    formatListingDescription() {
+      return this.$props.listing.description.length > 45
+        ? this.$props.listing.description.substr(0, 45) + "..."
+        : this.$props.listing.description;
     },
   },
 };
