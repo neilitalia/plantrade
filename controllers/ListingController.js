@@ -64,7 +64,7 @@ const CreateListing = async (req, res) => {
   try {
     // TODO: Verify user in listing
     const listing = req.body.listing
-    if(listing.title && listing.price && listing.plant && listing.quantity > 1 && listing.description){
+    if(listing.title && listing.price && listing.plant && listing.quantity >= 1 && listing.description){
       const newListing = await Listing.create({ ...req.body.listing, views: 0 })
       return res.send(newListing)
     }

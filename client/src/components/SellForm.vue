@@ -77,7 +77,8 @@ export default {
         return this.$store.state.sell.price;
       },
       set(value) {
-        this.$store.commit("sell/setPrice", value);
+        const price = parseFloat(value).toFixed(2);
+        this.$store.commit("sell/setPrice", price);
       },
     },
     plant: {

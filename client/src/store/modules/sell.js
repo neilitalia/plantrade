@@ -136,6 +136,7 @@ const actions = {
         user_id: rootState.auth.user.id
       }
     }
+    console.log('listingReq :>> ', listingReq);
     const listingRes = await SubmitNewListing(listingReq)
     if(listingRes.status === 200) {
       if(rootState.sell.uploadStatus === 'Uploaded'){
