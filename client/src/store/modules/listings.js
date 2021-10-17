@@ -3,7 +3,7 @@ import { GetAllListings, GetListingById, SearchForListings } from "../../service
 const state = () => ({
   listings: [],
   openListingDialog: false,
-  selectedListing: false,
+  selectedListing: null,
   selectedCartId: null,
   selectedListingDetails: null,
   listingsStatus: null,
@@ -34,7 +34,7 @@ const mutations = {
     state.selectedListingDetails = payload
   },
   resetSelectedListing(state){
-    state.selectedListing = false
+    state.selectedListing = null
   },
   resetSelectedListingDetails(state){
     state.selectedListingDetails = null

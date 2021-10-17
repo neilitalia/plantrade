@@ -3,10 +3,11 @@
     not-padding
     scroll
     overflow-hidden
+    @close="handleClose"
     v-model="openListingDialog"
     class="listing-dialog center grid"
   >
-    <vs-row vs-justify="space-between">
+    <vs-row vs-justify="space-between" v-if="selectedListingDetails">
       <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="6">
         <div class="con-image">
           <img
@@ -129,6 +130,10 @@ export default {
         listingId: this.selectedListing,
       };
       this.addToCart(payload);
+    },
+    handleClose() {
+      this.resetSelectedListing();
+      this.resetSelectedListingDetails();
     },
   },
 };
