@@ -140,7 +140,6 @@ export default {
     },
     listingStatus() {
       if (this.listingStatus === "Submitted with image") {
-        this.$router.push("/listings");
         this.$vs.notification({
           progress: "auto",
           color: "#B5E27A",
@@ -151,8 +150,9 @@ export default {
             this.setListingStatus(null);
           },
         });
-      } else if (this.listingStatus === "Submitted") {
         this.$router.push("/listings");
+        this.$store.commit("sell/resetSellForm");
+      } else if (this.listingStatus === "Submitted") {
         this.$vs.notification({
           progress: "auto",
           color: "#B5E27A",
@@ -162,6 +162,8 @@ export default {
             this.setListingStatus(null);
           },
         });
+        this.$router.push("/listings");
+        this.$store.commit("sell/resetSellForm");
       } else if (this.listingStatus === "Failed") {
         this.$vs.notification({
           progress: "auto",

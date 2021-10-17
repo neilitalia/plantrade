@@ -152,7 +152,6 @@ const actions = {
       } else {
         commit('setListingStatus', 'Submitted')
       }
-      commit('resetSellForm')
     } else {
       commit('setListingStatus', 'Failed')
     }

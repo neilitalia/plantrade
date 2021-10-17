@@ -35,7 +35,12 @@
     <template #footer>
       <div class="footer-dialog">
         <vs-button block @click="handleLogin"> Sign In </vs-button>
-        <div class="new">New Here? <a href="#">Create New Account</a></div>
+        <div class="new">
+          New Here?
+          <span class="new-account-link" @click="routeToRegistration"
+            >Create New Account</span
+          >
+        </div>
       </div>
     </template>
   </vs-dialog>
@@ -70,6 +75,10 @@ export default {
       "handleLogin",
       "setLoginStatus",
     ]),
+    routeToRegistration() {
+      this.$router.push({ name: "Home", hash: "#register" });
+      this.toggleAuthDialog();
+    },
   },
 };
 </script>
@@ -77,5 +86,10 @@ export default {
 <style scoped>
 .vs-input-content {
   width: 100%;
+}
+.new-account-link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #5b3cc4;
 }
 </style>

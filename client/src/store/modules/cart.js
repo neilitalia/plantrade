@@ -27,6 +27,9 @@ const mutations = {
   },
   setNewCartName(state, payload){
     state.newCartName = payload
+  },
+  resetCartStatus(state){
+    state.cartStatus = null
   }
 }
 
@@ -76,8 +79,10 @@ const actions = {
     }
     const res = await AddItemToUserCart(req)
     if(res.status === 200){
+      commit('resetCartStatus')
       commit('setCartStatus', 'Added')
     } else {
+      commit('resetCartStatus')
       commit('setCartStatus', 'Failed')
     }
   },
@@ -109,8 +114,10 @@ const actions = {
     }
     const res = await IncrementCartItem(req)
     if(res.status === 200){
+      commit('resetCartStatus')
       commit('setCartStatus','Incremented')
     } else {
+      commit('resetCartStatus')
       commit('setCartStatus','Failed')
     }
   },
@@ -121,16 +128,20 @@ const actions = {
     }
     const res = await DecrementCartItem(req)
     if(res.status === 200){
+      commit('resetCartStatus')
       commit('setCartStatus','Decremented')
     } else {
+      commit('resetCartStatus')
       commit('setCartStatus','Failed')
     }
   },
   async deleteCart({commit}, payload){
     const res = await DeleteCart(payload)
     if(res.status === 200){
+      commit('resetCartStatus')
       commit('setCartStatus','Cart Deleted')
     } else {
+      commit('resetCartStatus')
       commit('setCartStatus','Failed')
     }
   }
