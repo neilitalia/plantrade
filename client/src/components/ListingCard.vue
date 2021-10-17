@@ -6,7 +6,7 @@
     <template #img>
       <img
         v-if="!listing.image_listing.length"
-        src="https://images.unsplash.com/photo-1562619227-71c891fd2799?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2626&q=80"
+        :src="placeholder"
         alt="Plant placeholder image"
       />
       <img
@@ -64,12 +64,13 @@
 
 <script>
 import { mapActions } from "vuex";
-import { AWS_BASE_URL } from "../globals";
+import { AWS_BASE_URL, IMAGE_PLACEHOLDER_URL } from "../globals";
 export default {
   name: "ListingCard",
   props: ["listing", "inCart", "cart"],
   data: () => ({
     awsBaseUrl: AWS_BASE_URL,
+    placeholder: IMAGE_PLACEHOLDER_URL,
   }),
   computed: {
     openListingDialog: {
