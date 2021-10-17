@@ -1,5 +1,4 @@
-const { Cart, User } = require('../models')
-const { stripe } = require('./Stripe')
+const { Cart, User, Listing, Image } = require('../models')
 
 const GetAllCarts = async (req, res) => {
   try {
@@ -50,6 +49,32 @@ const GetAllUserCarts = async (req, res) => {
   }
 }
 
+const GetAllCartItems = async (req, res) => {
+  try {
+    const cartItems = await Cart.findOne({
+      where: { id: req.params.cart_id },
+      attributes: { exclude: ['createdAt','updatedAt'] },
+      include: {
+        model: Listing,
+        as: 'cart_listing',
+        attributes: { exclude: ['createdAt','updatedAt','views'] },
+        through: {
+          as: 'cart_info',
+          attributes: ['quantity']
+        },
+        include: {
+          model: Image,
+          as: 'image_listing',
+          attributes: { exclude: ['createdAt','updatedAt','id','user_id','listing_id'] },
+        }
+      }
+    })
+    return res.send(cartItems)
+  } catch (error) {
+    return res.status(500).send(error.message)
+  }
+}
+
 const DeleteCart = async (req, res) => {
   try {
     const cart = await Cart.findOne({where: { id: req.params.cart_id}})
@@ -60,47 +85,11 @@ const DeleteCart = async (req, res) => {
   }
 }
 
-const Checkout = async (req, res) => {
-  try {
-    const session = await stripe.checkout.sessions.create({
-      success_url: "http://localhost:8080/success",
-      cancel_url: "http://localhost:8080/cancel",
-      payment_method_types: ['card'],
-      line_items: [
-        { price_data: {
-          currency: 'USD',
-          product_data: {
-            name: 'OnlyFlanks 1time',
-            description: 'test req',
-            tax_code: 'txcd_99999999'
-          },
-          unit_amount: 1299
-        },
-        quantity: 3},
-        { price_data: {
-          currency: 'USD',
-          product_data: {
-            name: 'Just4Flans 1time',
-            description: 'test req',
-            tax_code: 'txcd_99999999'
-          },
-          unit_amount: 1599
-        },
-        quantity: 2}
-      ],
-      mode: 'payment'
-    })
-    res.send(session)
-  } catch (error) {
-    return res.status(500).send(error.message)
-  }
-}
-
 module.exports = {
   GetAllCarts,
   GetCartById,
   CreateNewCart,
   GetAllUserCarts,
-  DeleteCart,
-  Checkout
+  GetAllCartItems,
+  DeleteCart
 }

@@ -25,6 +25,11 @@ CartRouter.post(
   controller.CreateNewCart
 )
 
+CartRouter.get(
+  '/itemsin/:cart_id',
+  controller.GetAllCartItems
+)
+
 CartRouter.post(
   '/checkout',
   middleware.stripToken,
