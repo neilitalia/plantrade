@@ -205,7 +205,7 @@ export default {
       if (this.stripe.url) {
         this.$vs.notification({
           classNotification: "checkout-notification",
-          duration: "3000",
+          duration: "2000",
           progress: "auto",
           color: "#17C964",
           position: "bottom-center",
