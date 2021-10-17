@@ -81,7 +81,7 @@ const DeleteCart = async (req, res) => {
     const deletedCartListings = CartListing.destroy({ where: { cart_id: id} })
     const cart = await Cart.findOne({where: { id: id }})
     const deletedCart = await cart.destroy({returning: true})
-    return res.send({msg: "Deleted Cart", deleted: [deletedCart, deletedCartListings]})
+    return res.send({msg: "Deleted Cart", payload: { cart_id: id }, deleted: [deletedCart, deletedCartListings]})
   } catch (error) {
     return res.status(500).send(error.message)
   }

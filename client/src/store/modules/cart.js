@@ -1,4 +1,4 @@
-import { GetUserCartItems, AddItemToUserCart, GetUserCartsList, RemoveItemFromUserCart, IncrementCartItem, DecrementCartItem, CreateNewCartList } from "../../services/CartServices";
+import { GetUserCartItems, AddItemToUserCart, GetUserCartsList, RemoveItemFromUserCart, IncrementCartItem, DecrementCartItem, CreateNewCartList, DeleteCart } from "../../services/CartServices";
 
 const state = () => ({
   userCarts: [],
@@ -110,6 +110,8 @@ const actions = {
     const res = await IncrementCartItem(req)
     if(res.status === 200){
       commit('setCartStatus','Incremented')
+    } else {
+      commit('setCartStatus','Failed')
     }
   },
   async decrementCartItem({commit},payload){
@@ -120,6 +122,16 @@ const actions = {
     const res = await DecrementCartItem(req)
     if(res.status === 200){
       commit('setCartStatus','Decremented')
+    } else {
+      commit('setCartStatus','Failed')
+    }
+  },
+  async deleteCart({commit}, payload){
+    const res = await DeleteCart(payload)
+    if(res.status === 200){
+      commit('setCartStatus','Cart Deleted')
+    } else {
+      commit('setCartStatus','Failed')
     }
   }
 }

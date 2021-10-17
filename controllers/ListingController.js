@@ -110,7 +110,7 @@ const DeleteListing = async (req, res) => {
       where: { id: id }
     })
     const deleted = await listing.destroy()
-    return res.send({ msg: "Deleted listing", deleted: [deletedCartsListing, deletedImage, deleted ]})
+    return res.send({ msg: "Deleted listing", payload: { listing_id: id }, deleted: [deletedCartsListing, deletedImage, deleted ]})
   } catch (error) {
     return res.status(500).send({ error: error })
   }

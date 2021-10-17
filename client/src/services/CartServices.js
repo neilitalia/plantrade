@@ -15,6 +15,16 @@ export const GetUserCartItems = async (userId) => {
   return res
 }
 
+export const DeleteCart = async (cartId) => {
+  const res = await Client.delete(`/cart/delete/${cartId}`)
+    .then((res) =>{
+    return res
+  }).catch((err)=>{
+    return err.response
+  })
+  return res
+}
+
 export const AddItemToUserCart = async (data) => {
   const res = await Client.post('/cartlisting/add', data)
     .then((res) =>{

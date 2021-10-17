@@ -27,16 +27,11 @@
         <i class="bx bx-show"></i>
         <span class="span">{{ listing.views }}</span>
       </vs-button>
-      <vs-tooltip v-if="inCart">
-        <vs-button
-          class="btn-chat"
-          warn
-          icon
-          @click="removeFromCart({ cartId: cart.id, listingId: listing.id })"
-        >
-          <i class="bx bx-trash"></i>
+      <vs-tooltip v-if="inProfile">
+        <vs-button class="btn-chat" primary icon>
+          <i class="bx bx-edit-alt"></i>
         </vs-button>
-        <template #tooltip> Remove from cart </template>
+        <template #tooltip> Edit Listing </template>
       </vs-tooltip>
       <vs-tooltip v-if="inProfile">
         <vs-button
@@ -48,6 +43,17 @@
           <i class="bx bx-trash"></i>
         </vs-button>
         <template #tooltip> Delete Listing </template>
+      </vs-tooltip>
+      <vs-tooltip v-if="inCart">
+        <vs-button
+          class="btn-chat"
+          warn
+          icon
+          @click="removeFromCart({ cartId: cart.id, listingId: listing.id })"
+        >
+          <i class="bx bx-trash"></i>
+        </vs-button>
+        <template #tooltip> Remove from cart </template>
       </vs-tooltip>
       <vs-button-group v-if="inCart">
         <vs-button

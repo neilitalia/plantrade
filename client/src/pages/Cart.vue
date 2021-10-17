@@ -24,7 +24,7 @@
         </div>
         <div v-if="!cart.cart_listing.length">
           <h2>Your {{ cart.name }} cart is lonely :( No items yet</h2>
-          <vs-button border class="mr-20" @click="checkOut(cart.id)">
+          <vs-button border class="mr-20" @click="deleteCart(cart.id)">
             <i class="bx bx-trash-alt"></i>&nbsp;Delete list
           </vs-button>
         </div>
@@ -42,7 +42,7 @@
             <vs-button border class="mr-20" @click="checkOut(cart.id)">
               <i class="bx bx-cart"></i>&nbsp;Checkout
             </vs-button>
-            <vs-button border class="mr-20" @click="checkOut(cart.id)">
+            <vs-button border class="mr-20" @click="deleteCart(cart.id)">
               <i class="bx bx-trash-alt"></i>&nbsp;Delete list
             </vs-button>
             <p>Subtotal: ${{ getSubTotal(cart.cart_listing) }}</p>
@@ -84,8 +84,12 @@ export default {
   },
   methods: {
     ...mapActions("navigation", ["setActivePage"]),
-    ...mapActions("stripe", ["checkout"]),
-    ...mapActions("cart", ["getUserCartItems", "toggleNewCartDialog"]),
+    ...mapActions("stripe", ["checkOut"]),
+    ...mapActions("cart", [
+      "getUserCartItems",
+      "toggleNewCartDialog",
+      "deleteCart",
+    ]),
     getSubTotal(items) {
       const rawSubTotal = items.reduce((acc, item) => {
         return acc + item.price * item.cart_info.quantity;
