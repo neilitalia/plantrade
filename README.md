@@ -19,7 +19,7 @@ Plantrade is an online platform to buy and sell houseplants. Everyone can view t
 
 ## 🚦 Getting Started 
 
-Visit the [live demo hosted on heroku](https://plantrade.herokuapp.com) and create an account to start posting or browsing listings. Search for a specific plant you want to buy or post plants you want to sell.
+Visit the [live demo hosted on heroku](https://plantrade.herokuapp.com) and create a secure account to start posting. Search for a specific plant you want to buy or post plants you want to sell.
 
 
 
@@ -36,7 +36,9 @@ This app is built on a Vue front-end, connected to a RESTful server built on exp
 
 ## 📸 Screenshots
 
-Coming Soon
+![Landing Page](https://i.imgur.com/gDCEFq2.png)
+![Listings Page](https://i.imgur.com/lr4NRsJ.png)
+![Cart Page](https://i.imgur.com/Sao832F.png)
 
 
 
@@ -63,6 +65,7 @@ Coming Soon
 - [Axios delete request body](https://masteringjs.io/tutorials/axios/delete-with-body)
 - [Vuex resetting to inital state](https://stackoverflow.com/questions/42295340/how-to-clear-state-in-vuex-store)
 - [Styling file inputs](https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/)
+- [Vuesax Framework for Vuejs](https://vuesax.com/)
 
 ## Future Updates
 

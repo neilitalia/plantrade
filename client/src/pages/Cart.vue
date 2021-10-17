@@ -10,7 +10,7 @@
         <h3 class="text-center">No items yet...</h3>
       </vs-col>
     </vs-row>
-    <vs-row v-for="cart in userCarts.cart_owner" :key="cart.id" class="mb-15vh">
+    <vs-row v-for="cart in userCarts.cart_owner" :key="cart.id" class="mb-7vh">
       <vs-col
         vs-type="flex"
         vs-justify="center"
