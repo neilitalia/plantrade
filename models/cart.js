@@ -23,7 +23,9 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'users',
         key: 'id'
-      }
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
     }
   }, {
     sequelize,

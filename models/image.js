@@ -22,14 +22,18 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'users',
         key: 'id'
-      }
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
     },
     listing_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'listings',
         key: 'id'
-      }
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
     },
   }, {
     sequelize,
