@@ -217,6 +217,9 @@ h1 {
 .pb-15vh {
   padding-bottom: 15vh;
 }
+.mb-15vh {
+  margin-bottom: 15vh;
+}
 .pt-15vh {
   padding-top: 15vh;
 }
