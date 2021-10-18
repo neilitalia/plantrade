@@ -1,6 +1,6 @@
 <template>
   <div class="user-details">
-    <div>
+    <div class="user-avatar">
       <vs-avatar size="70" badge badge-color="#28164F">
         <i class="bx bx-user"></i>
         <template #badge>
@@ -41,6 +41,12 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
+}
+.user-avatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 </style>

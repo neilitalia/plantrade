@@ -28,7 +28,12 @@
         <span class="span">{{ listing.views }}</span>
       </vs-button>
       <vs-tooltip v-if="inProfile">
-        <vs-button class="btn-chat" primary icon>
+        <vs-button
+          class="btn-chat"
+          primary
+          icon
+          @click="handleEditClick(listing.id)"
+        >
           <i class="bx bx-edit-alt"></i>
         </vs-button>
         <template #tooltip> Edit Listing </template>
@@ -107,6 +112,10 @@ export default {
   methods: {
     ...mapActions("listings", ["setSelectedListing", "getListingDetails"]),
     ...mapActions("profile", ["toggleDeleteDialog", "setListingIdToDelete"]),
+    ...mapActions("editListing", [
+      "toggleEditDialog",
+      "setCurrentDetailsToFields",
+    ]),
     ...mapActions("cart", [
       "removeFromCart",
       "incrementCartItem",
@@ -118,6 +127,10 @@ export default {
         this.getListingDetails(id);
         this.$store.commit("listings/toggleListingDialog");
       }
+    },
+    handleEditClick(id) {
+      this.setCurrentDetailsToFields(id);
+      this.toggleEditDialog();
     },
     formatListingDescription() {
       return this.$props.listing.description.length > 40

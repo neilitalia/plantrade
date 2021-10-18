@@ -35,6 +35,16 @@ export const SubmitNewListing = async (data) => {
   return res
 }
 
+export const UpdateListing = async (data) => {
+  const res = await Client.put('/listings/update', data)
+    .then((res) =>{
+    return res
+  }).catch((err)=>{
+    return err.response
+  })
+  return res 
+}
+
 export const DeleteListing = async (listing_id) => {
   const res = await Client.delete(`/listings/delete/${listing_id}`)
     .then((res) =>{

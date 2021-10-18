@@ -40,7 +40,7 @@ ListingRouter.put(
 )
 
 ListingRouter.put(
-  '/update/:listing_id', 
+  '/update', 
   middleware.stripToken,
   middleware.verifyToken,
   controller.UpdateListing

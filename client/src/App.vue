@@ -43,6 +43,7 @@ export default {
       authenticated: (state) => state.auth.authenticated,
       listingStatus: (state) => state.sell.listingStatus,
       profileStatus: (state) => state.profile.profileStatus,
+      editListingStatus: (state) => state.editListing.editListingStatus,
       user: (state) => state.auth.user,
       stripe: (state) => state.stripe.stripe,
     }),
@@ -201,6 +202,29 @@ export default {
         });
       }
     },
+    editListingStatus() {
+      if (this.editListingStatus === "Updated") {
+        this.$vs.notification({
+          progress: "auto",
+          color: "#B5E27A",
+          position: "bottom-center",
+          title: "We got your update!",
+          onDestroy: () => {
+            this.setEditListingStatus(null);
+          },
+        });
+      } else if (this.editListingStatus === "Failed") {
+        this.$vs.notification({
+          progress: "auto",
+          position: "bottom-center",
+          title: "Oops!",
+          text: "Something went wrong, try again.",
+          onDestroy: () => {
+            this.setEditListingStatus(null);
+          },
+        });
+      }
+    },
     stripe() {
       if (this.stripe.url) {
         this.$vs.notification({
@@ -221,6 +245,7 @@ export default {
   methods: {
     ...mapActions("auth", ["checkSession"]),
     ...mapActions("sell", ["setListingStatus"]),
+    ...mapActions("editListing", ["setEditListingStatus"]),
     ...mapActions("profile", [
       "getUserInfo",
       "getListingsByUser",

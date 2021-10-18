@@ -68,7 +68,7 @@ const CreateListing = async (req, res) => {
       const newListing = await Listing.create({ ...req.body.listing, views: 0 })
       return res.send(newListing)
     }
-    res.status(400).send({ error: "Incomplete Fields" })
+    res.status(400).send({ error: "Invalid Fields" })
   } catch (error) {
     return res.status(500).send({ error: error })
   }
@@ -78,8 +78,8 @@ const UpdateListing = async (req, res) => {
   try {
     const listing = req.body.listing
     const updatedListing = await Listing.update(
-      { ...listing },
-      { where: { id: req.params.listing_id },
+      listing,
+      { where: { id: req.body.listing_id },
         returning: true
       })
     return res.send(updatedListing)

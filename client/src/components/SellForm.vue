@@ -29,7 +29,7 @@
     <vs-input
       state="dark"
       v-model="plant"
-      label-placeholder="Plant"
+      label-placeholder="Plant Species"
       class="mb-25"
       maxlength="40"
     />

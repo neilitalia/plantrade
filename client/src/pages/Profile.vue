@@ -36,6 +36,7 @@
       </vs-col>
     </vs-row>
     <DeleteListingDialog />
+    <EditListingDialog />
   </div>
 </template>
 
@@ -44,9 +45,15 @@ import { mapActions, mapState } from "vuex";
 import ListingCard from "../components/ListingCard";
 import UserDetails from "../components/UserDetails";
 import DeleteListingDialog from "../components/DeleteListingDialog";
+import EditListingDialog from "../components/EditListingDialog";
 export default {
   name: "Profile",
-  components: { UserDetails, ListingCard, DeleteListingDialog },
+  components: {
+    UserDetails,
+    ListingCard,
+    DeleteListingDialog,
+    EditListingDialog,
+  },
   created() {
     this.getUserInfo();
     this.getListingsByUser();
