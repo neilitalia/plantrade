@@ -55,7 +55,11 @@ const actions = {
   async createNewCart({rootState, commit}){
     const res = await CreateNewCartList({name: rootState.cart.newCartName, user_id: rootState.auth.user.id})
     if(res.status === 200){
+      const newCart = {...res.data, cart_listing: []}
+      const newCarts = { ...rootState.cart.userCarts, cart_owner: [...rootState.cart.userCarts.cart_owner, newCart]}
+      commit('toggleNewCartDialog')
       commit('setCartStatus', 'New Cart Created')
+      commit('setUserCarts', newCarts)
     } else {
       commit('setCartStatus', 'Failed')
     }

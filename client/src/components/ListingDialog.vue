@@ -36,22 +36,40 @@
             </h3>
             <h3>{{ selectedListingDetails.quantity }} left</h3>
             <p class="listing-card-body">
-              {{ selectedListingDetails.description }}
+              {{ selectedListingDetails.views }} views
             </p>
             <p class="listing-card-body">
+              {{ selectedListingDetails.description }}
+            </p>
+            <p
+              class="listing-card-body"
+              v-if="
+                authenticated &&
+                selectedListingDetails.listing_owner.id === user.id
+              "
+            >
+              You posted this on
+              {{ formatDate(selectedListingDetails.createdAt) }}
+            </p>
+            <p class="listing-card-body" v-else>
               Posted by {{ selectedListingDetails.listing_owner.username }} on
               {{ formatDate(selectedListingDetails.createdAt) }}
             </p>
-            <p class="listing-card-body">
-              {{ selectedListingDetails.views }} views
-            </p>
-            <vs-row align="center">
-              <vs-button v-if="!authenticated" @click="toggleAuthDialog">
-                <span class="span">Log in</span>
+            <vs-row align="center" v-if="!authenticated">
+              <vs-button @click="toggleAuthDialog"> Log in </vs-button>
+              <vs-button to="/#register"> Create an account </vs-button>
+              <vs-button primary icon disabled>
+                <i class="bx bx-cart"></i>
+                <span class="span">Add to cart</span>
               </vs-button>
-              <vs-button v-if="!authenticated" to="/#register">
-                Create an account
-              </vs-button>
+            </vs-row>
+            <vs-row
+              align="center"
+              v-if="
+                authenticated &&
+                selectedListingDetails.listing_owner.id !== user.id
+              "
+            >
               <vs-button
                 primary
                 icon
@@ -77,6 +95,17 @@
                 </vs-option>
               </vs-select>
             </vs-row>
+            <vs-row
+              align="center"
+              v-if="
+                authenticated &&
+                selectedListingDetails.listing_owner.id === user.id
+              "
+            >
+              <vs-button primary icon @click="router.push('/profile')">
+                View in your profile
+              </vs-button>
+            </vs-row>
           </vs-col>
         </vs-row>
       </vs-col>
@@ -96,6 +125,7 @@ export default {
   }),
   computed: {
     ...mapState({
+      user: (state) => state.auth.user,
       selectedListing: (state) => state.listings.selectedListing,
       selectedListingDetails: (state) => state.listings.selectedListingDetails,
       authenticated: (state) => state.auth.authenticated,
