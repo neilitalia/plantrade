@@ -52,7 +52,6 @@ export default {
     handleFileChange(e) {
       const file = e.target.files;
       if (file && file[0]) {
-        console.log("file :>> ", file);
         this.setImageFile(file[0]);
         this.setLocalFileName(file[0].name);
         const reader = new FileReader();
