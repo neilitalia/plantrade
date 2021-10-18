@@ -94,6 +94,7 @@ export default {
     ...mapActions("navigation", ["setActivePage"]),
     ...mapActions("stripe", ["checkOut"]),
     ...mapActions("cart", [
+      "getUserCartsList",
       "getUserCartItems",
       "toggleNewCartDialog",
       "deleteCart",

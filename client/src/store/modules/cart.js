@@ -139,14 +139,20 @@ const actions = {
       commit('setCartStatus','Failed')
     }
   },
-  async deleteCart({commit}, payload){
+  async deleteCart({state, commit}, payload){
     const res = await DeleteCart(payload)
     if(res.status === 200){
-      commit('resetCartStatus')
+      const newCarts = [...state.userCarts.cart_owner].filter(cart => {
+        return cart.id !== parseInt(res.data.payload.cart_id)
+      })
+      console.log('newCarts :>> ', newCarts);
+      const newUserCarts = { ...state.userCarts, cart_owner: newCarts }
+      commit('setUserCarts', newUserCarts)
       commit('setCartStatus','Cart Deleted')
-    } else {
       commit('resetCartStatus')
+    } else {
       commit('setCartStatus','Failed')
+      commit('resetCartStatus')
     }
   }
 }
