@@ -95,21 +95,29 @@ const actions = {
       commit('setQuantity', res.data.quantity)
     }
   },
-  async submitEditedListing({state, commit}){
+  async submitEditedListing({rootState, commit}){
     const req = {
-      listing_id: state.apiResponse.id,
+      listing_id: rootState.editListing.apiResponse.id,
       listing: {
-        title: state.title,
-        price: state.price,
-        plant: state.plant,
-        description: state.description,
-        quantity: state.quantity
+        title: rootState.editListing.title,
+        price: rootState.editListing.price,
+        plant: rootState.editListing.plant,
+        description: rootState.editListing.description,
+        quantity: rootState.editListing.quantity
       }
     }
     const res = await UpdateListing(req)
     if(res.status === 200){
-      commit('resetEditForm')
+      const newListings = [...rootState.profile.userListings].map(item => {
+        if(item.id === res.data.id){
+          return res.data
+        } else {
+          return item
+        }
+      })
+      commit('profile/setUserListings', newListings, { root: true })
       commit('setEditListingStatus', 'Updated')
+      commit('resetEditForm')
     } else {
       commit('setEditListingStatus', 'Failed')
     }

@@ -77,11 +77,18 @@ const CreateListing = async (req, res) => {
 const UpdateListing = async (req, res) => {
   try {
     const listing = req.body.listing
-    const updatedListing = await Listing.update(
+    const update = await Listing.update(
       listing,
       { where: { id: req.body.listing_id },
-        returning: true
+        returning: true,
       })
+    const updatedListing = await Listing.findOne({
+      where: { id: req.body.listing_id },
+      include: {
+        model: Image,
+        as: 'image_listing'
+      },
+    })
     return res.send(updatedListing)
   } catch (error) {
     return res.status(500).send({ error: error })
