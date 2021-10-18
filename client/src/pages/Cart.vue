@@ -39,8 +39,13 @@
             </div>
           </transition-group>
           <div class="subtotal-checkout">
-            <vs-button border class="mr-20" @click="checkOut(cart.id)">
-              <i class="bx bx-cart"></i>&nbsp;Checkout
+            <vs-button
+              border
+              class="mr-20"
+              :loading="loading"
+              @click="checkOut(cart.id)"
+            >
+              <i class="bx bx-cart"></i>&nbsp;Secure Checkout
             </vs-button>
             <vs-button border class="mr-20" @click="deleteCart(cart.id)">
               <i class="bx bx-trash-alt"></i>&nbsp;Delete list
@@ -76,10 +81,13 @@ export default {
   components: { ListingCard, NewCartDialog },
   mounted() {
     this.setActivePage("Cart");
+    this.getUserCartItems();
+    this.getUserCartsList();
   },
   computed: {
     ...mapState({
       userCarts: (state) => state.cart.userCarts,
+      loading: (state) => state.stripe.loading,
     }),
   },
   methods: {
