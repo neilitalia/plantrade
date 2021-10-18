@@ -111,13 +111,31 @@ const actions = {
       commit('setCartStatus','Failed')
     }
   },
-  async incrementCartItem({commit},payload){
+  async incrementCartItem({state, commit},payload){
     const req = {
       cart_id: payload.cartId,
       listing_id: payload.listingId
     }
     const res = await IncrementCartItem(req)
     if(res.status === 200){
+      const newCart = [...state.userCarts.cart_owner].map(cart=>{
+        if(cart.id === res.data.cart_id){
+          console.log('cart :>> ', cart);
+          const newCartListings = [...cart.cart_listing].map(listing => {
+            if(listing.id === res.data.listing_id){
+              return {...listing, cart_info: { quantity: res.data.quantity }}
+            } else {
+              return listing
+            }
+          })
+          console.log('newCartListings :>> ', newCartListings);
+          return {...cart, cart_listing: newCartListings}
+        } else {
+          return cart
+        }
+      })
+      const updatedCarts = {...state.userCarts, cart_owner: newCart }
+      commit('setUserCarts', updatedCarts)
       commit('resetCartStatus')
       commit('setCartStatus','Incremented')
     } else {
@@ -125,13 +143,31 @@ const actions = {
       commit('setCartStatus','Failed')
     }
   },
-  async decrementCartItem({commit},payload){
+  async decrementCartItem({state, commit},payload){
     const req = {
       cart_id: payload.cartId,
       listing_id: payload.listingId
     }
     const res = await DecrementCartItem(req)
     if(res.status === 200){
+      const newCart = [...state.userCarts.cart_owner].map(cart=>{
+        if(cart.id === res.data.cart_id){
+          console.log('cart :>> ', cart);
+          const newCartListings = [...cart.cart_listing].map(listing => {
+            if(listing.id === res.data.listing_id){
+              return {...listing, cart_info: { quantity: res.data.quantity }}
+            } else {
+              return listing
+            }
+          })
+          console.log('newCartListings :>> ', newCartListings);
+          return {...cart, cart_listing: newCartListings}
+        } else {
+          return cart
+        }
+      })
+      const updatedCarts = {...state.userCarts, cart_owner: newCart }
+      commit('setUserCarts', updatedCarts)
       commit('resetCartStatus')
       commit('setCartStatus','Decremented')
     } else {

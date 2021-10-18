@@ -58,6 +58,11 @@ const actions = {
   async deleteListing({state, commit}){
     const res = await DeleteListing(state.listingIdToDelete)
     if(res.status === 200){
+      const newListings = state.userListings.filter(item=>{
+        return item.id !== parseInt(res.data.payload.listing_id)
+      })
+      commit('setUserListings', newListings)
+      commit('toggleDeleteDialog')
       commit('setProfileStatus','Listing Deleted')
     } else {
       commit('setProfileStatus','Listing Delete Failed')
