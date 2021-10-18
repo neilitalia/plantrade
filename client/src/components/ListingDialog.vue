@@ -102,7 +102,7 @@
                 selectedListingDetails.listing_owner.id === user.id
               "
             >
-              <vs-button primary icon @click="router.push('/profile')">
+              <vs-button primary icon to="/profile">
                 View in your profile
               </vs-button>
             </vs-row>
