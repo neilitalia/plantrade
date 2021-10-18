@@ -23,7 +23,7 @@
           <h2># {{ cart.id }}</h2>
         </div>
         <div v-if="!cart.cart_listing.length">
-          <h2>Your {{ cart.name }} cart is lonely :( No items yet</h2>
+          <h2>Your {{ cart.name }} is lonely :( No items yet</h2>
           <vs-button border class="mr-20" @click="deleteCart(cart.id)">
             <i class="bx bx-trash-alt"></i>&nbsp;Delete list
           </vs-button>
