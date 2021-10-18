@@ -21,7 +21,7 @@
     <template #interactions>
       <vs-button success icon>
         <i class="bx bx-dollar"></i>
-        <span class="span">{{ listing.price }}</span>
+        <span class="span">{{ parseFloat(listing.price).toFixed(2) }}</span>
       </vs-button>
       <vs-button shadow primary icon>
         <i class="bx bx-show"></i>
