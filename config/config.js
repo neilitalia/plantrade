@@ -1,21 +1,24 @@
-require('dotenv').config()
+require("dotenv").config();
 module.exports = {
   development: {
-    database: 'plantrade_development',
-    dialect: 'postgres'
+    database: "plantrade_development",
+    dialect: "postgres",
+    host: process.env.DB_HOST,
   },
   test: {
-    database: 'plantrade_test',
-    dialect: 'postgres'
+    database: "plantrade_test",
+    dialect: "postgres",
+    host: process.env.DB_HOST,
   },
   production: {
-    use_env_variable: 'DATABASE_URL',
-    dialect: 'postgres',
+    database: "plantrade_production",
+    dialect: "postgres",
+    host: process.env.DB_HOST,
     dialectOptions: {
       ssl: {
         rejectUnauthorized: false,
-        require: true
-      }
-    }
-  }
-}
+        require: true,
+      },
+    },
+  },
+};
