@@ -14,11 +14,5 @@ module.exports = {
     database: "plantrade_production",
     dialect: "postgres",
     host: process.env.DB_HOST,
-    dialectOptions: {
-      ssl: {
-        rejectUnauthorized: false,
-        require: true,
-      },
-    },
   },
 };
