@@ -6,10 +6,8 @@ module.exports = {
     host: process.env.DB_HOST,
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    ssl: true,
     dialectOptions: {
       ssl: {
-        require: true,
         rejectUnauthorized: false,
       },
     },
@@ -18,12 +16,20 @@ module.exports = {
     database: "plantrade_test",
     dialect: "postgres",
     host: process.env.DB_HOST,
-    ssl: true,
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
   },
   production: {
     database: "plantrade_production",
     dialect: "postgres",
     host: process.env.DB_HOST,
-    ssl: true,
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
   },
 };
