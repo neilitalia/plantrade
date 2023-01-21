@@ -189,7 +189,7 @@ export default {
 .listing-card-subtitle {
   font-size: 1.5rem;
   margin: 0;
-  line-height: 1rem;
+  line-height: 1.4rem;
 }
 .listing-card-body {
   margin: 5px auto;
