@@ -10,7 +10,7 @@ const config = require(__dirname + "/../config/config.js")[env];
 const db = {};
 
 let sequelize;
-console.log("config", config);
+console.log("Using config: ", config);
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
@@ -20,6 +20,7 @@ if (config.use_env_variable) {
 }
 
 utils.checkDatabaseConnection(sequelize);
+utils.synchronizeDatabase(sequelize);
 
 fs.readdirSync(__dirname)
   .filter((file) => {

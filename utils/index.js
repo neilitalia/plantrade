@@ -7,6 +7,18 @@ async function checkDatabaseConnection(sequelize) {
   }
 }
 
+function synchronizeDatabase(sequelize) {
+  sequelize
+    .sync()
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
 module.exports = {
   checkDatabaseConnection,
+  synchronizeDatabase,
 };
